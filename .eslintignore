@@ -1,0 +1,13 @@
+/.git
+
+lib
+lib-node
+build
+out
+node_modules
+generated
+
+.next
+
+jest.config.js
+src/service-worker.js
