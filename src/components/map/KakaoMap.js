@@ -1,21 +1,31 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
+import MULTICAMPUS_COORD from 'src/constants/coord'
 
-function KaKaoMap(props) {
-  const { markerPositions } = props
+const KakaoMap = (props) => {
+  const { markerPositions, size } = props
   const [kakaoMap, setKakaoMap] = useState(null)
   const [, setMarkers] = useState([])
+
   const container = useRef()
 
   useEffect(() => {
-    console.log(container)
-    const center = new window.kakao.maps.LatLng(37.50802, 127.062835)
-    const options = {
-      center,
-      level: 3,
-    }
-    const map = new window.kakao.maps.Map(container.current, options)
+    const script = document.createElement('script')
+    script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAOMAP_APPKEY}&libraries=services,clusterer&autoload=false`
+    document.head.appendChild(script)
 
-    setKakaoMap(map)
+    script.onload = () => {
+      kakao.maps.load(() => {
+        const { lat, lng } = MULTICAMPUS_COORD
+        const center = new kakao.maps.LatLng(lat, lng)
+        const options = {
+          center,
+          level: 6,
+        }
+        const map = new kakao.maps.Map(container.current, options)
+        //setMapCenter(center);
+        setKakaoMap(map)
+      })
+    }
   }, [container])
 
   useEffect(() => {
@@ -27,15 +37,14 @@ function KaKaoMap(props) {
     const center = kakaoMap.getCenter()
 
     // change viewport size
-    const [width, height] = [400, 400]
-    container.current.style.width = `${width}px`
-    container.current.style.height = `${height}px`
+    container.current.style.width = `100%`
+    container.current.style.height = `100vh`
 
     // relayout and...
     kakaoMap.relayout()
     // restore
     kakaoMap.setCenter(center)
-  }, [kakaoMap])
+  }, [kakaoMap, size])
 
   useEffect(() => {
     if (kakaoMap === null) {
@@ -69,4 +78,4 @@ function KaKaoMap(props) {
   return <div id="container" ref={container} />
 }
 
-export default KaKaoMap
+export default KakaoMap
