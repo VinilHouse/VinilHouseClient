@@ -1,10 +1,12 @@
-// import Map from 'src/components/map/Map'
+import KakaoMap from 'src/components/map/KakaoMap'
+import { useState } from 'react'
 
 const MainScreen = () => {
+  const [markerPositions, setMarkerPositions] = useState([])
   return (
     <>
       <h1>Main Page</h1>
-      <Map latitude="37.5" longitude="127" />
+      <KakaoMap markerPositions={markerPositions} />
     </>
   )
 }

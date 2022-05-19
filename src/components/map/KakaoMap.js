@@ -1,39 +1,72 @@
-import styled from '@emotion/styled'
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
-function KaKaoMap({ latitude, longitude }) {
+function KaKaoMap(props) {
+  const { markerPositions } = props
+  const [kakaoMap, setKakaoMap] = useState(null)
+  const [, setMarkers] = useState([])
+  const container = useRef()
+
   useEffect(() => {
-    const mapScript = document.createElement('script')
-
-    mapScript.async = true
-    mapScript.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAOMAP_APPKEY}&autoload=false`
-
-    document.head.appendChild(mapScript)
-
-    const onLoadKakaoMap = () => {
-      window.kakao.maps.load(() => {
-        const container = document.getElementById('map')
-        const options = {
-          center: new window.kakao.maps.LatLng(latitude, longitude),
-        }
-        const map = new window.kakao.maps.Map(container, options)
-        const markerPosition = new window.kakao.maps.LatLng(latitude, longitude)
-        const marker = new window.kakao.maps.Marker({
-          position: markerPosition,
-        })
-        marker.setMap(map)
-      })
+    console.log(container)
+    const center = new window.kakao.maps.LatLng(37.50802, 127.062835)
+    const options = {
+      center,
+      level: 3,
     }
-    mapScript.addEventListener('load', onLoadKakaoMap)
+    const map = new window.kakao.maps.Map(container.current, options)
 
-    return () => mapScript.removeEventListener('load', onLoadKakaoMap)
-  }, [latitude, longitude])
+    setKakaoMap(map)
+  }, [container])
 
-  return <MapContainer id="map" />
+  useEffect(() => {
+    if (kakaoMap === null) {
+      return
+    }
+
+    // save center position
+    const center = kakaoMap.getCenter()
+
+    // change viewport size
+    const [width, height] = [400, 400]
+    container.current.style.width = `${width}px`
+    container.current.style.height = `${height}px`
+
+    // relayout and...
+    kakaoMap.relayout()
+    // restore
+    kakaoMap.setCenter(center)
+  }, [kakaoMap])
+
+  useEffect(() => {
+    if (kakaoMap === null) {
+      return
+    }
+
+    const positions = markerPositions.map(
+      (pos) => new kakao.maps.LatLng(...pos),
+    )
+
+    setMarkers((markers) => {
+      // clear prev markers
+      markers.forEach((marker) => marker.setMap(null))
+
+      // assign new markers
+      return positions.map(
+        (position) => new kakao.maps.Marker({ map: kakaoMap, position }),
+      )
+    })
+
+    if (positions.length > 0) {
+      const bounds = positions.reduce(
+        (bounds, latlng) => bounds.extend(latlng),
+        new kakao.maps.LatLngBounds(),
+      )
+
+      kakaoMap.setBounds(bounds)
+    }
+  }, [kakaoMap, markerPositions])
+
+  return <div id="container" ref={container} />
 }
-
-const MapContainer = styled.div`
-  aspect-ratio: 320 / 220;
-`
 
 export default KaKaoMap
