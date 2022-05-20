@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import MainScreen from 'src/screens/Mainscreen'
+import MainScreen from 'src/screens/mainscreen'
 
 const Home = () => {
   return (
