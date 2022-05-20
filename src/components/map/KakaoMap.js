@@ -1,4 +1,5 @@
-import React, { useEffect, useState, useRef } from 'react'
+/* eslint-disable */
+import { useEffect, useState, useRef } from 'react'
 import MULTICAMPUS_COORD from 'src/constants/coord'
 
 const KakaoMap = (props) => {
@@ -22,7 +23,7 @@ const KakaoMap = (props) => {
           level: 6,
         }
         const map = new kakao.maps.Map(container.current, options)
-        //setMapCenter(center);
+        // setMapCenter(center);
         setKakaoMap(map)
       })
     }

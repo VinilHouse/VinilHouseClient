@@ -28,7 +28,7 @@ class MyDocument extends Document {
     }
   }
 
-  //todo: Head에 웹폰트 넣어주기
+  // todo: Head에 웹폰트 넣어주기
   render() {
     return (
       <Html>
