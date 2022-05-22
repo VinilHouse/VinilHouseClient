@@ -1,15 +1,17 @@
 /* eslint-disable */
 import { useEffect, useState, useRef } from 'react'
 import MULTICAMPUS_COORD from 'src/constants/coord'
+import axios from 'axios'
 
-const KakaoMap = (props) => {
-  const { markerPositions, size } = props
+const KakaoMap = () => {
   const [kakaoMap, setKakaoMap] = useState(null)
   const [, setMarkers] = useState([])
-
-  const container = useRef()
+  const [content, setContent] = useState([])
+  const [markerPositions, setMarkerPositions] = useState([])
+  const container = useRef(null)
 
   useEffect(() => {
+    console.log
     const script = document.createElement('script')
     script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAOMAP_APPKEY}&libraries=services,clusterer&autoload=false`
     document.head.appendChild(script)
@@ -23,11 +25,55 @@ const KakaoMap = (props) => {
           level: 6,
         }
         const map = new kakao.maps.Map(container.current, options)
-        // setMapCenter(center);
+
+        container.current.style.width = `100%`
+        container.current.style.height = `100vh`
+
+        kakao.maps.event.addListener(map, 'idle', function () {
+          // 지도 영역정보를 얻어옵니다
+          let bounds = map.getBounds()
+
+          // 영역정보의 남서쪽 정보를 얻어옵니다
+          let swLatlng = bounds.getSouthWest()
+
+          // 영역정보의 북동쪽 정보를 얻어옵니다
+          let neLatlng = bounds.getNorthEast()
+
+          let message =
+            '<p>영역좌표는 남서쪽 위도, 경도는  ' +
+            swLatlng.toString() +
+            '이고 <br>'
+          message +=
+            '북동쪽 위도, 경도는  ' + neLatlng.toString() + '입니다 </p>'
+
+          let resultDiv = document.getElementById('result')
+          resultDiv.innerHTML = message
+
+          const result = axios.get(
+            `http://15.152.141.201:9876/api/location/range?beginLat=${swLatlng.Ma}&beginLng=${swLatlng.La}&endLat=${neLatlng.Ma}&endLng=${neLatlng.La}&level=DONG`,
+          )
+
+          result
+            .then((data) => {
+              console.log(data)
+              setContent(data.data.content)
+            })
+            .catch((e) => {
+              console.log('error occured! : ' + e)
+            })
+        })
+
         setKakaoMap(map)
       })
     }
-  }, [container])
+  }, [])
+
+  useEffect(() => {
+    const result = content.map((e) => {
+      return [e.lat, e.lng]
+    })
+    setMarkerPositions(result)
+  }, [content])
 
   useEffect(() => {
     if (kakaoMap === null) {
@@ -38,14 +84,12 @@ const KakaoMap = (props) => {
     const center = kakaoMap.getCenter()
 
     // change viewport size
-    container.current.style.width = `100%`
-    container.current.style.height = `100vh`
 
     // relayout and...
     kakaoMap.relayout()
     // restore
     kakaoMap.setCenter(center)
-  }, [kakaoMap, size])
+  }, [kakaoMap])
 
   useEffect(() => {
     if (kakaoMap === null) {
@@ -66,17 +110,22 @@ const KakaoMap = (props) => {
       )
     })
 
-    if (positions.length > 0) {
-      const bounds = positions.reduce(
-        (bounds, latlng) => bounds.extend(latlng),
-        new kakao.maps.LatLngBounds(),
-      )
+    // if (positions.length > 0) {
+    //   const bounds = positions.reduce(
+    //     (bounds, latlng) => bounds.extend(latlng),
+    //     new kakao.maps.LatLngBounds(),
+    //   )
 
-      kakaoMap.setBounds(bounds)
-    }
+    //   kakaoMap.setBounds(bounds)
+    // }
   }, [kakaoMap, markerPositions])
 
-  return <div id="container" ref={container} />
+  return (
+    <>
+      <div id="container" ref={container} />
+      <div id="result" />
+    </>
+  )
 }
 
 export default KakaoMap
