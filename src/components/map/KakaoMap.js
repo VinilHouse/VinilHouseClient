@@ -53,7 +53,7 @@ const KakaoMap = () => {
           resultDiv.innerHTML = message
 
           const result = axios.get(
-            `http://15.152.141.201:9876/api/location/range?beginLat=${
+            `https://15.152.141.201:9876/api/location/range?beginLat=${
               swLatlng.Ma
             }&beginLng=${swLatlng.La}&endLat=${neLatlng.Ma}&endLng=${
               neLatlng.La
