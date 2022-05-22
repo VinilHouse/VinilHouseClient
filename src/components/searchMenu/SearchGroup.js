@@ -1,4 +1,4 @@
-import SearchInput from './searchInput'
+import SearchInput from './SearchInput'
 import styled from '@emotion/styled'
 
 const SearchGroup = () => {
