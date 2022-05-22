@@ -96,17 +96,22 @@ const KakaoMap = () => {
       return
     }
 
-    const positions = markerPositions.map(
-      (pos) => new kakao.maps.LatLng(...pos),
-    )
+    const markerInforms = content.map((e) => ({
+      position: new kakao.maps.LatLng(e.lat, e.lng),
+      inform: `<div style="padding:5px;">${e.name}<br><div style="color:blue">평균 가격: ${e.avgPrice}</div>`,
+    }))
 
     setMarkers((markers) => {
       // clear prev markers
       markers.forEach((marker) => marker.setMap(null))
 
-      // assign new markers
-      return positions.map(
-        (position) => new kakao.maps.Marker({ map: kakaoMap, position }),
+      return markerInforms.map(
+        (e) =>
+          new kakao.maps.InfoWindow({
+            map: kakaoMap,
+            position: e.position,
+            content: e.inform,
+          }),
       )
     })
 
@@ -118,7 +123,7 @@ const KakaoMap = () => {
 
     //   kakaoMap.setBounds(bounds)
     // }
-  }, [kakaoMap, markerPositions])
+  }, [kakaoMap, content])
 
   return (
     <>
