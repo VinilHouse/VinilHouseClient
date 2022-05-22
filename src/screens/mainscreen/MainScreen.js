@@ -1,4 +1,4 @@
-import LeftSide from 'src/components/layout/leftSide'
+import LeftSide from 'src/components/layout/LeftSide'
 import KakaoMap from 'src/components/map/KakaoMap'
 
 const MainScreen = () => {
