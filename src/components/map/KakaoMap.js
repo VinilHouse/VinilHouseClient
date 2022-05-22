@@ -1,7 +1,8 @@
 /* eslint-disable */
 import { useEffect, useState, useRef } from 'react'
-import MULTICAMPUS_COORD from 'src/constants/coord'
 import axios from 'axios'
+import MULTICAMPUS_COORD from 'src/constants/coord'
+import { levelRange, priceToString } from 'src/utils'
 
 const KakaoMap = () => {
   const [kakaoMap, setKakaoMap] = useState(null)
@@ -33,6 +34,8 @@ const KakaoMap = () => {
           // 지도 영역정보를 얻어옵니다
           let bounds = map.getBounds()
 
+          let level = map.getLevel()
+          console.log(level)
           // 영역정보의 남서쪽 정보를 얻어옵니다
           let swLatlng = bounds.getSouthWest()
 
@@ -50,7 +53,11 @@ const KakaoMap = () => {
           resultDiv.innerHTML = message
 
           const result = axios.get(
-            `http://15.152.141.201:9876/api/location/range?beginLat=${swLatlng.Ma}&beginLng=${swLatlng.La}&endLat=${neLatlng.Ma}&endLng=${neLatlng.La}&level=DONG`,
+            `http://15.152.141.201:9876/api/location/range?beginLat=${
+              swLatlng.Ma
+            }&beginLng=${swLatlng.La}&endLat=${neLatlng.Ma}&endLng=${
+              neLatlng.La
+            }&level=${levelRange(level)}`,
           )
 
           result
@@ -98,7 +105,11 @@ const KakaoMap = () => {
 
     const markerInforms = content.map((e) => ({
       position: new kakao.maps.LatLng(e.lat, e.lng),
-      inform: `<div style="padding:5px;">${e.name}<br><div style="color:blue">평균 가격: ${e.avgPrice}</div>`,
+      inform: `<div style="padding:5px;">${
+        e.name
+      }<br><div style="color:blue">평균 가격: ${priceToString(
+        Math.floor(e.avgPrice),
+      )}</div>`,
     }))
 
     setMarkers((markers) => {
