@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import { ThemeProvider } from 'styled-components'
 import { theme } from 'styles/theme'
+import { RecoilRoot } from 'recoil'
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -15,7 +16,9 @@ function MyApp({ Component, pageProps }) {
       </Head>
       <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
       <ThemeProvider theme={theme}>
-        <Component {...pageProps} />
+        <RecoilRoot>
+          <Component {...pageProps} />
+        </RecoilRoot>
       </ThemeProvider>
     </>
   )

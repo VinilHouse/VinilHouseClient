@@ -1,12 +1,16 @@
 import styled from '@emotion/styled'
+import { useRecoilValue } from 'recoil'
+import { aptState } from 'src/store/states'
+import AptDetail from '../apt/AptDetail'
 import RankSwiper from '../searchMenu/RankSwiper'
 import SearchGroup from '../searchMenu/SearchGroup'
 
 const LeftSide = () => {
+  const aptData = useRecoilValue(aptState)
   return (
     <LeftSideWrapper>
       <SearchGroup />
-      <RankSwiper />
+      {aptData ? <AptDetail data={aptData} /> : <RankSwiper />}
     </LeftSideWrapper>
   )
 }
