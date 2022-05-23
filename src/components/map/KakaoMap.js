@@ -12,7 +12,6 @@ const KakaoMap = () => {
   const container = useRef(null)
 
   useEffect(() => {
-    console.log
     const script = document.createElement('script')
     script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAOMAP_APPKEY}&libraries=services,clusterer&autoload=false`
     document.head.appendChild(script)
@@ -28,37 +27,38 @@ const KakaoMap = () => {
         const map = new kakao.maps.Map(container.current, options)
 
         container.current.style.width = `100%`
-        container.current.style.height = `100vh`
+        container.current.style.height = `98vh`
 
         kakao.maps.event.addListener(map, 'idle', function () {
           // 지도 영역정보를 얻어옵니다
           let bounds = map.getBounds()
 
           let level = map.getLevel()
-          console.log(level)
+          // console.log(level)
           // 영역정보의 남서쪽 정보를 얻어옵니다
           let swLatlng = bounds.getSouthWest()
 
           // 영역정보의 북동쪽 정보를 얻어옵니다
           let neLatlng = bounds.getNorthEast()
 
-          let message =
-            '<p>영역좌표는 남서쪽 위도, 경도는  ' +
-            swLatlng.toString() +
-            '이고 <br>'
-          message +=
-            '북동쪽 위도, 경도는  ' + neLatlng.toString() + '입니다 </p>'
+          // let message =
+          //   '<p>영역좌표는 남서쪽 위도, 경도는  ' +
+          //   swLatlng.toString() +
+          //   '이고 <br>'
+          // message +=
+          //   '북동쪽 위도, 경도는  ' + neLatlng.toString() + '입니다 </p>'
 
-          let resultDiv = document.getElementById('result')
-          resultDiv.innerHTML = message
+          // let resultDiv = document.getElementById('result')
+          // resultDiv.innerHTML = message
 
-          const result = axios.get(
-            `http://15.152.141.201:9876/api/location/range?beginLat=${
-              swLatlng.Ma
-            }&beginLng=${swLatlng.La}&endLat=${neLatlng.Ma}&endLng=${
-              neLatlng.La
-            }&level=${levelRange(level)}`,
-          )
+          let levelCategory = levelRange(level)
+
+          let url =
+            levelCategory == 'DETAIL'
+              ? `api/houses/info/range?beginLat=${swLatlng.Ma}&beginLng=${swLatlng.La}&endLat=${neLatlng.Ma}&endLng=${neLatlng.La}`
+              : `api/location/range?beginLat=${swLatlng.Ma}&beginLng=${swLatlng.La}&endLat=${neLatlng.Ma}&endLng=${neLatlng.La}&level=${levelCategory}`
+
+          const result = axios.get(`http://15.152.141.201:80/${url}`)
 
           result
             .then((data) => {
@@ -107,7 +107,7 @@ const KakaoMap = () => {
       position: new kakao.maps.LatLng(e.lat, e.lng),
       inform: `<div style="padding:5px;">${
         e.name
-      }<br><div style="color:blue">평균 가격: ${priceToString(
+      }<br><div style="color:blue">${priceToString(
         Math.floor(e.avgPrice),
       )}</div>`,
     }))
