@@ -41,16 +41,6 @@ const KakaoMap = () => {
           // 영역정보의 북동쪽 정보를 얻어옵니다
           let neLatlng = bounds.getNorthEast()
 
-          // let message =
-          //   '<p>영역좌표는 남서쪽 위도, 경도는  ' +
-          //   swLatlng.toString() +
-          //   '이고 <br>'
-          // message +=
-          //   '북동쪽 위도, 경도는  ' + neLatlng.toString() + '입니다 </p>'
-
-          // let resultDiv = document.getElementById('result')
-          // resultDiv.innerHTML = message
-
           let levelCategory = levelRange(level)
 
           let url =
@@ -105,7 +95,8 @@ const KakaoMap = () => {
 
     const markerInforms = content.map((e) => ({
       position: new kakao.maps.LatLng(e.lat, e.lng),
-      inform: `<div style="padding:5px;">${
+      inform: `<div style="padding:5px; ">${
+        //todo
         e.name
       }<br><div style="color:blue">${priceToString(
         Math.floor(e.avgPrice),
@@ -139,7 +130,6 @@ const KakaoMap = () => {
   return (
     <>
       <div id="container" ref={container} />
-      <div id="result" />
     </>
   )
 }

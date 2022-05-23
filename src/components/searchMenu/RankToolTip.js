@@ -1,7 +1,7 @@
 import styled from '@emotion/styled'
 
 const RankToolTip = ({ ranks }) => {
-  // console.log(ranks)
+  console.log(ranks)
   return (
     <StyledWrapper>
       <div>
@@ -11,7 +11,7 @@ const RankToolTip = ({ ranks }) => {
               <div className={idx === 9 ? 'rank-number' : 'rank-number'}>
                 {idx + 1}
               </div>
-              {data.houseInfoResponseDto.aptName} - {data.popular}명
+              {data.houseInfoResponseDto.name} - {data.popular}명
             </div>
           )
         })}

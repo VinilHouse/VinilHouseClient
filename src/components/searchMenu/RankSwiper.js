@@ -68,7 +68,7 @@ const RankSwiper = () => {
                   >
                     {idx + 1}
                   </div>
-                  {e.houseInfoResponseDto.aptName} - {e.popular}명
+                  {e.houseInfoResponseDto.name} - {e.popular}명
                 </SwiperSlide>
               )
             })}
