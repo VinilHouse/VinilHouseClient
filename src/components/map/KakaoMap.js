@@ -116,15 +116,6 @@ const KakaoMap = () => {
           }),
       )
     })
-
-    // if (positions.length > 0) {
-    //   const bounds = positions.reduce(
-    //     (bounds, latlng) => bounds.extend(latlng),
-    //     new kakao.maps.LatLngBounds(),
-    //   )
-
-    //   kakaoMap.setBounds(bounds)
-    // }
   }, [kakaoMap, content])
 
   return (

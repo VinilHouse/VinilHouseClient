@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import Script from 'next/script'
 import { ThemeProvider } from 'styled-components'
 import { theme } from 'styles/theme'
 
@@ -7,13 +8,13 @@ function MyApp({ Component, pageProps }) {
     <>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        {/* <meta
-          httpEquiv="Content-Security-Policy"
-          content="upgrade-insecure-requests"
-        ></meta> */}
         <title>happyhouse</title>
       </Head>
       <ThemeProvider theme={theme}>
+        <Script
+          src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAOMAP_APPKEY}&libraries=services,clusterer&autoload=false`}
+          strategy="beforeInteractive"
+        />
         <Component {...pageProps} />
       </ThemeProvider>
     </>
