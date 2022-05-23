@@ -98,6 +98,9 @@ const KakaoMap = () => {
         kakaoMap.setCenter(newCenter)
 
         setContent(result.data.content)
+        if (level < MAP_LEVEL_THRESHOLD.DETAIL) {
+          console.log('aa')
+        }
       }
       $wrap.addEventListener('click', zoomMap)
 
