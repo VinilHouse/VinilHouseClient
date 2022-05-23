@@ -1,12 +1,13 @@
 /* eslint-disable */
 import { useEffect, useState, useRef } from 'react'
 import axios from 'axios'
-import MULTICAMPUS_COORD from 'src/constants/coord'
-import { levelRange, priceToString } from 'src/utils'
+import { MULTICAMPUS_COORD, MAP_LEVEL_THRESHOLD } from 'src/constants/map'
+import { levelRange, priceToString, downLevel } from 'src/utils'
+import mapSmt from 'src/utils/mapSmt'
 
 const KakaoMap = () => {
   const [kakaoMap, setKakaoMap] = useState(null)
-  const [, setMarkers] = useState([])
+  const [markers, setMarkers] = useState([])
   const [content, setContent] = useState([])
   const [markerPositions, setMarkerPositions] = useState([])
   const container = useRef(null)
@@ -29,8 +30,7 @@ const KakaoMap = () => {
         container.current.style.width = `100%`
         container.current.style.height = `98vh`
 
-        kakao.maps.event.addListener(map, 'idle', function () {
-          // 지도 영역정보를 얻어옵니다
+        kakao.maps.event.addListener(map, 'idle', async () => {
           let bounds = map.getBounds()
 
           let level = map.getLevel()
@@ -48,16 +48,10 @@ const KakaoMap = () => {
               ? `api/houses/info/range?beginLat=${swLatlng.Ma}&beginLng=${swLatlng.La}&endLat=${neLatlng.Ma}&endLng=${neLatlng.La}`
               : `api/location/range?beginLat=${swLatlng.Ma}&beginLng=${swLatlng.La}&endLat=${neLatlng.Ma}&endLng=${neLatlng.La}&level=${levelCategory}`
 
-          const result = axios.get(`http://15.152.141.201:80/${url}`)
+          const result = await axios.get(`http://15.152.141.201:80/${url}`)
 
-          result
-            .then((data) => {
-              console.log(data)
-              setContent(data.data.content)
-            })
-            .catch((e) => {
-              console.log('error occured! : ' + e)
-            })
+          console.log(result)
+          setContent(result.data.content)
         })
 
         setKakaoMap(map)
@@ -76,12 +70,8 @@ const KakaoMap = () => {
     if (kakaoMap === null) {
       return
     }
-
     // save center position
     const center = kakaoMap.getCenter()
-
-    // change viewport size
-
     // relayout and...
     kakaoMap.relayout()
     // restore
@@ -92,29 +82,54 @@ const KakaoMap = () => {
     if (kakaoMap === null) {
       return
     }
+    let level = kakaoMap.getLevel()
+    const markerInforms = content.map((e) => {
+      // eslint-disable-next-line no-use-before-define
+      let $wrap = document.createElement('div')
+      $wrap.style.cssText = `
+      width:90px; height:50px; background-color:#2BC0E4; text-align:center;
+    `
 
-    const markerInforms = content.map((e) => ({
-      position: new kakao.maps.LatLng(e.lat, e.lng),
-      inform: `<div style="padding:5px; ">${
-        //todo
-        e.name
-      }<br><div style="color:blue">${priceToString(
-        Math.floor(e.avgPrice),
-      )}</div>`,
-    }))
+      const zoomMap = async () => {
+        let result = await mapSmt(kakaoMap)
+        let newCenter = new kakao.maps.LatLng(e.lat, e.lng)
+        let newLevel = downLevel(level)
+        newLevel && kakaoMap.setLevel(newLevel)
+        kakaoMap.setCenter(newCenter)
+
+        setContent(result.data.content)
+      }
+      $wrap.addEventListener('click', zoomMap)
+
+      let $name = document.createElement('div')
+      $name.style.cssText = `color:#EAECC6`
+      $name.innerText = e.name
+
+      let $price = document.createElement('div')
+      $price.innerText = priceToString(Math.floor(e.avgPrice))
+
+      $wrap.appendChild($name)
+      $wrap.appendChild($price)
+
+      return {
+        position: new kakao.maps.LatLng(e.lat, e.lng),
+        inform: $wrap,
+      }
+    })
 
     setMarkers((markers) => {
       // clear prev markers
       markers.forEach((marker) => marker.setMap(null))
 
-      return markerInforms.map(
-        (e) =>
-          new kakao.maps.InfoWindow({
-            map: kakaoMap,
-            position: e.position,
-            content: e.inform,
-          }),
-      )
+      return markerInforms.map((e) => {
+        // console.log(e)
+        let a = new kakao.maps.CustomOverlay({
+          map: kakaoMap,
+          position: e.position,
+          content: e.inform,
+        })
+        return a
+      })
     })
 
     // if (positions.length > 0) {

@@ -1,4 +1,4 @@
-import levelRange from './levelRange'
+import {levelRange,downLevel} from './levelRange'
 import priceToString from './priceToString'
 
-export { levelRange, priceToString }
+export { levelRange, downLevel, priceToString }

@@ -13,11 +13,9 @@ const priceToString = (val) => {
       resultArray[i] = unitResult / 10
     }
   }
-
-  if (!resultArray[1]) return ''
   resultString = String(resultArray[1]) + unitWords[1]
 
   return resultString
 }
 
-export default priceToString
+console.log(priceToString(55455))

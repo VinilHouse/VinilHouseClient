@@ -13,6 +13,7 @@ function MyApp({ Component, pageProps }) {
         ></meta> */}
         <title>happyhouse</title>
       </Head>
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
       <ThemeProvider theme={theme}>
         <Component {...pageProps} />
       </ThemeProvider>
