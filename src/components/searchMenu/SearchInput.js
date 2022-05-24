@@ -3,6 +3,7 @@ import Autocomplete from '@mui/material/Autocomplete'
 import styled from '@emotion/styled'
 import Image from 'next/image'
 import { logo, search } from 'public/assets/img'
+import { SearchOutlined } from '@ant-design/icons'
 
 const SearchInput = () => {
   return (
@@ -21,13 +22,7 @@ const SearchInput = () => {
           ></Autocomplete>
         </SearchInputTag>
         <ImageWrapper>
-          <Image
-            src={search}
-            alt="search Icon"
-            width={40}
-            height={40}
-            style={{ maxWidth: '100%', height: 'auto' }}
-          />
+          <SearchOutlined style={{ fontSize: '30px' }} />
         </ImageWrapper>
       </SearchInputWrapper>
     </div>

@@ -68,7 +68,9 @@ const RankSwiper = () => {
                   >
                     {idx + 1}
                   </div>
-                  {e.houseInfoResponseDto.name} - {e.popular}명
+                  <span id="rank-text">
+                    {e.houseInfoResponseDto.name} - {e.popular}명
+                  </span>
                 </SwiperSlide>
               )
             })}
@@ -88,13 +90,16 @@ const StyledLayout = styled.div`
   position: relative;
 
   .label {
-    font-size: 23px;
+    font-size: 25px;
+    font-weight: bold;
+    padding-left: 10px;
   }
 
   #search-first-row {
     display: flex;
     flex-direction: row;
     padding-bottom: 10px;
+    align-items: center;
   }
 
   #swiper-wrapper {
@@ -137,5 +142,9 @@ const StyledLayout = styled.div`
     &.last {
       padding: 3px 4px;
     }
+  }
+
+  #rank-text {
+    font-size: 18px;
   }
 `

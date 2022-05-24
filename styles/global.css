@@ -1,0 +1,31 @@
+/* body {
+  font-family: 'Dongle', sans-serif;
+}
+.normal {
+  font-weight: 700;
+}
+.bold {
+  font-weight: 900;
+}
+.bolder {
+  font-weight: 1000;
+}
+.light {
+  font-weight: 500;
+} */
+
+body {
+  font-family: 나눔스퀘어, 'NanumSquare', sans-serif;
+}
+.normal {
+  font-weight: 400;
+}
+.bold {
+  font-weight: 700;
+}
+.bolder {
+  font-weight: 800;
+}
+.light {
+  font-weight: 300;
+}

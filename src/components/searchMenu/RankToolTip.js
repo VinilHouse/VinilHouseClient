@@ -11,7 +11,9 @@ const RankToolTip = ({ ranks }) => {
               <div className={idx === 9 ? 'rank-number' : 'rank-number'}>
                 {idx + 1}
               </div>
-              {data.houseInfoResponseDto.name} - {data.popular}명
+              <span id="rank-text">
+                {data.houseInfoResponseDto.name} - {data.popular}명
+              </span>
             </div>
           )
         })}
@@ -42,6 +44,7 @@ const StyledWrapper = styled.div`
   }
 
   .rank-item {
+    align-items: center;
     margin: 0 0 10px;
     opacity: 0.8;
     width: 50%;
@@ -80,5 +83,9 @@ const StyledWrapper = styled.div`
     g g:last-child path {
       fill: black;
     }
+  }
+
+  #rank-text {
+    font-size: 17px;
   }
 `
