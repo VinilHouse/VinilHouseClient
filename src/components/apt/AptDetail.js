@@ -5,27 +5,31 @@ import {
 } from '@ant-design/icons'
 import styled from '@emotion/styled'
 import 'antd/dist/antd.css'
+import AptPriceChart from './AptPriceChart'
 
 const AptDetail = ({ data }) => {
-  console.log(data)
   return (
     <StyledWrapper>
       <div id="detail-header">
-        <div class="row">
-          <ArrowLeftOutlined style={{ padding: '10px' }} />
-          <span class="title">{data.name}</span>
-          <CloseOutlined style={{ fontSize: '30px', padding: '10px' }} />
+        <div className="row">
+          <ArrowLeftOutlined style={{ fontSize: '20px', padding: '10px' }} />
+          <span className="title">{data.houseInfoResponseDto.name}</span>
+          <CloseOutlined style={{ fontSize: '20px', padding: '10px' }} />
         </div>
-        <div class="text sub-title">
+        <div className="text sub-title">
           <span>
-            {data.dongName} {data.jibun} {data.buildYear}년 건축
+            {data.houseInfoResponseDto.dongName}{' '}
+            {data.houseInfoResponseDto.jibun}{' '}
+            {data.houseInfoResponseDto.buildYear}년 건축
           </span>
+          <CommentOutlined
+            style={{ float: 'right', fontSize: '30px', padding: '10px' }}
+          />
         </div>
       </div>
 
-      <div class="row">
-        <div>차트</div>
-        <CommentOutlined style={{ fontSize: '30px', padding: '10px' }} />
+      <div className="row">
+        <AptPriceChart />
       </div>
     </StyledWrapper>
   )

@@ -2,7 +2,7 @@ import TextField from '@mui/material/TextField'
 import Autocomplete from '@mui/material/Autocomplete'
 import styled from '@emotion/styled'
 import Image from 'next/image'
-import { logo, search } from 'public/assets/img'
+import { logo } from 'public/assets/img'
 import { SearchOutlined } from '@ant-design/icons'
 
 const SearchInput = () => {

@@ -5,7 +5,7 @@ import { MULTICAMPUS_COORD, MAP_LEVEL_THRESHOLD } from 'src/constants/map'
 import { levelRange, priceToString, downLevel } from 'src/utils'
 import mapSmt from 'src/utils/mapSmt'
 import { useRecoilState } from 'recoil'
-import { aptState } from 'src/store/states'
+import { aptCodeState } from 'src/store/states'
 
 const KakaoMap = () => {
   const [kakaoMap, setKakaoMap] = useState(null)
@@ -13,7 +13,7 @@ const KakaoMap = () => {
   const [content, setContent] = useState([])
   const [markerPositions, setMarkerPositions] = useState([])
   const container = useRef(null)
-  const [_, setAptState] = useRecoilState(aptState)
+  const [_, setAptCodeState] = useRecoilState(aptCodeState)
 
   useEffect(() => {
     const script = document.createElement('script')
@@ -317,10 +317,14 @@ const KakaoMap = () => {
 
         setContent(result.data.content)
         if (level < MAP_LEVEL_THRESHOLD.DETAIL) {
-          setAptState(e)
+          setAptCodeState(e.aptCode)
         }
       }
       $wrap.addEventListener('click', zoomMap)
+
+      // let $img = document.createElement('img')
+      // $img.setAttribute('src', 'https://svgshare.com/i/hbw.svg')
+      // $wrap.appendChild($img)
 
       let $name = document.createElement('div')
       $name.style.cssText = `color:#EAECC6`

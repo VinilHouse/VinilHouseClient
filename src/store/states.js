@@ -1,8 +1,13 @@
 import { atom } from 'recoil'
 
-const aptState = atom({
-  key: 'aptState',
+const aptCodeState = atom({
+  key: 'aptCodeState',
   default: false,
 })
 
-export { aptState }
+const modalVisibleState = atom({
+  key: 'modalVisibleState',
+  default: false,
+})
+
+export { aptCodeState, modalVisibleState }

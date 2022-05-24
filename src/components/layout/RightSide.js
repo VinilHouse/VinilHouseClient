@@ -1,9 +1,11 @@
 import LocCategory from '../LocCategory'
+import TopMenu from '../menu/TopMenu'
 
 const RightSide = () => {
   return (
     <>
-      <LocCategory></LocCategory>
+      <TopMenu />
+      <LocCategory />
     </>
   )
 }
