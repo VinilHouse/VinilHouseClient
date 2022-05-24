@@ -45,6 +45,7 @@ const StyleWrapper = styled.div`
     background: #fff;
     overflow: hidden;
     z-index: 2;
+    padding-left: 0px;
 
     li {
       float: left;
