@@ -1,17 +1,18 @@
 import styled from '@emotion/styled'
 import { Button } from 'antd'
 import { useRecoilState } from 'recoil'
-import { modalVisibleState } from 'src/store/states'
+import { modalLoginVisibleState } from 'src/store/states'
 
 const TopMenu = () => {
-  const [_, setIsModalVisible] = useRecoilState(modalVisibleState)
+  const [_, setIsModalLoginVisible] = useRecoilState(modalLoginVisibleState)
 
   const onClickHandler = () => {
-    setIsModalVisible((prevState) => {
-      // console.log(prevState)
+    setIsModalLoginVisible((prevState) => {
+      console.log(prevState)
       return !prevState
     })
   }
+
   return (
     <StyledWrapper>
       <Button type="primary" onClick={onClickHandler}>
