@@ -5,7 +5,7 @@ import { aptCodeState } from 'src/store/states'
 import AptDetail from '../apt/AptDetail'
 import RankSwiper from '../searchMenu/RankSwiper'
 import SearchGroup from '../searchMenu/SearchGroup'
-import axios from 'axios'
+import http from 'src/api/http'
 
 const LeftSide = () => {
   const aptCode = useRecoilValue(aptCodeState)
@@ -13,9 +13,7 @@ const LeftSide = () => {
   useEffect(() => {
     if (!aptCode) return
     async function fetchData() {
-      return await axios.get(
-        `http://ec2-15-152-141-201.ap-northeast-3.compute.amazonaws.com/api/houses/deal?aptCode=${aptCode}`,
-      )
+      return await http.get(`/houses/deal?aptCode=${aptCode}`)
     }
     fetchData()
       .then(({ data }) => {

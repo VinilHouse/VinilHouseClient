@@ -1,11 +1,11 @@
 /* eslint-disable */
 import { useEffect, useState, useRef } from 'react'
-import axios from 'axios'
 import { MULTICAMPUS_COORD, MAP_LEVEL_THRESHOLD } from 'src/constants/map'
 import { levelRange, priceToString, downLevel } from 'src/utils'
 import mapSmt from 'src/utils/mapSmt'
 import { useRecoilState } from 'recoil'
 import { aptCodeState } from 'src/store/states'
+import http from 'src/api/http'
 
 const KakaoMap = () => {
   const [kakaoMap, setKakaoMap] = useState(null)
@@ -47,10 +47,10 @@ const KakaoMap = () => {
 
           let url =
             levelCategory == 'DETAIL'
-              ? `api/houses/info/range?beginLat=${swLatlng.Ma}&beginLng=${swLatlng.La}&endLat=${neLatlng.Ma}&endLng=${neLatlng.La}`
-              : `api/location/range?beginLat=${swLatlng.Ma}&beginLng=${swLatlng.La}&endLat=${neLatlng.Ma}&endLng=${neLatlng.La}&level=${levelCategory}`
+              ? `/houses/info/range?beginLat=${swLatlng.Ma}&beginLng=${swLatlng.La}&endLat=${neLatlng.Ma}&endLng=${neLatlng.La}`
+              : `/location/range?beginLat=${swLatlng.Ma}&beginLng=${swLatlng.La}&endLat=${neLatlng.Ma}&endLng=${neLatlng.La}&level=${levelCategory}`
 
-          const result = await axios.get(`http://15.152.141.201:80/${url}`)
+          const result = await http.get(`${url}`)
 
           console.log(result)
           setContent(result.data.content)

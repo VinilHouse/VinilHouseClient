@@ -9,8 +9,8 @@ import 'swiper/css/pagination'
 // Import Swiper styles
 import 'swiper/css'
 import { useEffect, useState } from 'react'
-import axios from 'axios'
 import RankToolTip from './RankToolTip'
+import http from 'src/api/http'
 
 // SwiperCore.use([Pagination, Autoplay])
 
@@ -24,7 +24,7 @@ const RankSwiper = () => {
 
   console.log(showSwiper)
   useEffect(() => {
-    const result = axios.get(`http://15.152.141.201:80/api/houses/rank`)
+    const result = http.get(`/houses/rank`)
 
     result
       .then((data) => {

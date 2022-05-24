@@ -1,5 +1,5 @@
-import axios from 'axios'
 import { levelRange } from 'src/utils'
+import http from 'src/api/http'
 
 export default function (map) {
   // 지도 영역정보를 얻어옵니다
@@ -17,10 +17,10 @@ export default function (map) {
 
   let url =
     levelCategory == 'DETAIL'
-      ? `api/houses/info/range?beginLat=${swLatlng.Ma}&beginLng=${swLatlng.La}&endLat=${neLatlng.Ma}&endLng=${neLatlng.La}`
-      : `api/location/range?beginLat=${swLatlng.Ma}&beginLng=${swLatlng.La}&endLat=${neLatlng.Ma}&endLng=${neLatlng.La}&level=${levelCategory}`
+      ? `/houses/info/range?beginLat=${swLatlng.Ma}&beginLng=${swLatlng.La}&endLat=${neLatlng.Ma}&endLng=${neLatlng.La}`
+      : `/location/range?beginLat=${swLatlng.Ma}&beginLng=${swLatlng.La}&endLat=${neLatlng.Ma}&endLng=${neLatlng.La}&level=${levelCategory}`
 
-  const result = axios.get(`http://15.152.141.201:80/${url}`)
+  const result = http.get(`${url}`)
 
   return result
 }
