@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Form, Input, Modal, Button, Checkbox } from 'antd'
 import { useRecoilState } from 'recoil'
 import { modalVisibleState } from 'src/store/states'
+import { result } from 'lodash'
 
 const AuthModal = () => {
   const [isModalVisible, setIsModalVisible] = useRecoilState(modalVisibleState)

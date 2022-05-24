@@ -4,10 +4,13 @@ import { useRecoilState } from 'recoil'
 import { modalVisibleState } from 'src/store/states'
 
 const TopMenu = () => {
-  const [isModalVisible, setIsModalVisible] = useRecoilState(modalVisibleState)
+  const [_, setIsModalVisible] = useRecoilState(modalVisibleState)
 
   const onClickHandler = () => {
-    setIsModalVisible(!isModalVisible)
+    setIsModalVisible((prevState) => {
+      // console.log(prevState)
+      return !prevState
+    })
   }
   return (
     <StyledWrapper>
