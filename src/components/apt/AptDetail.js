@@ -9,12 +9,7 @@ import AptChartTab from './AptChartTab'
 import AptDealList from './AptDealList'
 import AptImage from './AptImage'
 
-const areaType = [143.56, 178.35]
-
 const AptDetail = ({ data }) => {
-  console.log(data)
-
-  console.log(data.houseInfoResponseDto.img)
   return (
     <StyledWrapper>
       <AptImage src={data.houseInfoResponseDto.img} />
@@ -34,11 +29,7 @@ const AptDetail = ({ data }) => {
       </StyledHeader>
 
       <div className="row">
-        <AptChartTab areaType={areaType} />
-      </div>
-
-      <div className="row">
-        <AptDealList />
+        <AptChartTab areaType={data.groupList} />
       </div>
     </StyledWrapper>
   )

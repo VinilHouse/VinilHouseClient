@@ -23,32 +23,15 @@ const columns = [
   },
 ]
 
-const props = [
-  {
-    key: '1',
-    aptCode: 34599,
-    area: '97.8',
-    dealAmount: 46000,
-    dealDay: 18,
-    dealMonth: 1,
-    dealYear: 2007,
-    floor: '6',
-    id: 7763850,
-    rentMoney: null,
-    type: null,
-  },
-]
-
-const data = props.map((e, idx) => {
-  return {
-    key: `${idx}`,
-    date: `${e.dealYear}.${e.dealMonth}.${e.dealDay}`,
-    dealAmount: e.dealAmount,
-    floor: e.floor,
-  }
-})
-
-const AptDealList = () => {
+const AptDealList = ({ dealData }) => {
+  const data = dealData.map((e, idx) => {
+    return {
+      key: `${idx}`,
+      date: `${e.dealYear}.${e.dealMonth}.${e.dealDay}`,
+      dealAmount: e.dealAmount,
+      floor: e.floor,
+    }
+  })
   return (
     <StyledWrapper>
       <Table columns={columns} dataSource={data} />

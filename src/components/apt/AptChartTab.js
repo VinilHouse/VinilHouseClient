@@ -3,6 +3,7 @@ import { Tabs } from 'antd'
 import AptPriceChart from './AptPriceChart'
 import areaToString from 'src/utils/areaToString'
 import styled from '@emotion/styled'
+import AptDealList from './AptDealList'
 
 const { TabPane } = Tabs
 
@@ -23,8 +24,9 @@ const AptChartTab = ({ areaType }) => {
         {areaType ? (
           areaType.map((e, idx) => {
             return (
-              <TabPane tab={areaToString(e)} key={idx}>
-                <AptPriceChart monthData={null} />
+              <TabPane tab={areaToString(e.py)} key={idx}>
+                <AptPriceChart monthData={e.dealList} />
+                <AptDealList dealData={e.dealList} />
               </TabPane>
             )
           })

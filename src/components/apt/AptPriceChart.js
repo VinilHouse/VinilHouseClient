@@ -25,16 +25,13 @@ const options = {
   responsive: true,
   plugins: {
     legend: {
-      position: 'top',
-    },
-    title: {
-      display: true,
-      text: 'Chart.js Line Chart',
+      position: 'bottom',
     },
   },
 }
 
 const AptPriceChart = ({ monthData }) => {
+  console.log(monthData)
   const labels = [
     'January',
     'February',
