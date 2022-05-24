@@ -39,11 +39,11 @@ class MyDocument extends Document {
             href="https://fonts.googleapis.com/css2?family=Dongle:wght@300;400&display=swap"
             rel="stylesheet"
           /> */}
-          <link
+          {/* <link
             rel="stylesheet"
             type="text/css"
             href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@1.0/nanumsquare.css"
-          ></link>
+          ></link> */}
         </Head>
         <body>
           <Main />

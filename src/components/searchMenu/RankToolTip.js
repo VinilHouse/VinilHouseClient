@@ -86,6 +86,6 @@ const StyledWrapper = styled.div`
   }
 
   #rank-text {
-    font-size: 17px;
+    font-size: 15px;
   }
 `

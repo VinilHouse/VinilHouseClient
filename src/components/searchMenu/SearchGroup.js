@@ -11,5 +11,5 @@ const SearchGroup = () => {
 export default SearchGroup
 
 const SearchGroupWrapper = styled.div`
-  display: flex;,
+  display: flex;
 `

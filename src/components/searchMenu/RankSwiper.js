@@ -90,7 +90,7 @@ const StyledLayout = styled.div`
   position: relative;
 
   .label {
-    font-size: 25px;
+    font-size: 20px;
     font-weight: bold;
     padding-left: 10px;
   }
@@ -98,12 +98,12 @@ const StyledLayout = styled.div`
   #search-first-row {
     display: flex;
     flex-direction: row;
-    padding-bottom: 10px;
+    padding-bottom: 5px;
     align-items: center;
   }
 
   #swiper-wrapper {
-    padding: 10px;
+    padding: 5px 10px;
   }
 
   .vertical-swiper {
@@ -145,6 +145,6 @@ const StyledLayout = styled.div`
   }
 
   #rank-text {
-    font-size: 18px;
+    font-size: 15px;
   }
 `

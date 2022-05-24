@@ -39,8 +39,8 @@ const LeftSideWrapper = styled.div`
   position: absolute;
   background-color: white;
   z-index: 1;
-  top: 2em;
-  left: 2em;
+  top: 1em;
+  left: 1em;
   display: flex;
   flex-direction: column;
 `

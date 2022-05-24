@@ -1,87 +1,69 @@
-import { Line } from '@ant-design/plots'
-import styled from '@emotion/styled'
 import React from 'react'
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js'
+import { Line } from 'react-chartjs-2'
 
-const AptPriceChart = () => {
-  const data = [
-    {
-      year: '1991',
-      value: 3,
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+)
+
+const options = {
+  responsive: true,
+  plugins: {
+    legend: {
+      position: 'top',
     },
-    {
-      year: '1992',
-      value: 4,
+    title: {
+      display: true,
+      text: 'Chart.js Line Chart',
     },
-    {
-      year: '1993',
-      value: 3.5,
-    },
-    {
-      year: '1994',
-      value: 5,
-    },
-    {
-      year: '1995',
-      value: 4.9,
-    },
-    {
-      year: '1996',
-      value: 6,
-    },
-    {
-      year: '1997',
-      value: 7,
-    },
-    {
-      year: '1998',
-      value: 9,
-    },
-    {
-      year: '1999',
-      value: 13,
-    },
+  },
+}
+
+const AptPriceChart = ({ monthData }) => {
+  const labels = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
   ]
-  const config = {
-    data,
-    xField: 'year',
-    yField: 'value',
-    label: {},
-    point: {
-      size: 5,
-      shape: 'diamond',
-      style: {
-        fill: 'white',
-        stroke: '#5B8FF9',
-        lineWidth: 2,
-      },
-    },
-    tooltip: {
-      showMarkers: false,
-    },
-    state: {
-      active: {
-        style: {
-          shadowBlur: 4,
-          stroke: '#000',
-          fill: 'red',
-        },
-      },
-    },
-    interactions: [
+
+  const data = {
+    labels,
+    datasets: [
       {
-        type: 'marker-active',
+        label: 'Dataset 1',
+        data: labels.map(() => [1000, 1000, 1000, 1000, 1000, 1000, 1000]),
+        borderColor: 'rgb(255, 99, 132)',
+        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+      },
+      {
+        label: 'Dataset 2',
+        data: labels.map(() => [1000, 1000, 1000, 1000, 1000, 1000, 1000]),
+        borderColor: 'rgb(53, 162, 235)',
+        backgroundColor: 'rgba(53, 162, 235, 0.5)',
       },
     ],
   }
-  return (
-    <StyledWrapper>
-      <Line {...config} />
-    </StyledWrapper>
-  )
-}
-export default AptPriceChart
 
-const StyledWrapper = styled.div`
-  width: 500px;
-  height: 400px;
-`
+  return <Line options={options} data={data} />
+}
+
+export default AptPriceChart

@@ -5,16 +5,23 @@ import {
 } from '@ant-design/icons'
 import styled from '@emotion/styled'
 import 'antd/dist/antd.css'
-import AptPriceChart from './AptPriceChart'
+import AptChartTab from './AptChartTab'
+import AptDealList from './AptDealList'
+import AptImage from './AptImage'
+
+const areaType = [143.56, 178.35]
 
 const AptDetail = ({ data }) => {
+  console.log(data)
+
   return (
     <StyledWrapper>
+      <AptImage src={data.houseInfoResponseDto.img} />
       <div id="detail-header">
         <div className="row">
-          <ArrowLeftOutlined style={{ fontSize: '20px', padding: '10px' }} />
+          <ArrowLeftOutlined style={{ fontSize: '15px', padding: '7px' }} />
           <span className="title">{data.houseInfoResponseDto.name}</span>
-          <CloseOutlined style={{ fontSize: '20px', padding: '10px' }} />
+          <CloseOutlined style={{ fontSize: '15px', padding: '7px' }} />
         </div>
         <div className="text sub-title">
           <span>
@@ -22,14 +29,15 @@ const AptDetail = ({ data }) => {
             {data.houseInfoResponseDto.jibun}{' '}
             {data.houseInfoResponseDto.buildYear}년 건축
           </span>
-          <CommentOutlined
-            style={{ float: 'right', fontSize: '30px', padding: '10px' }}
-          />
         </div>
       </div>
 
       <div className="row">
-        <AptPriceChart />
+        <AptChartTab areaType={areaType} />
+      </div>
+
+      <div className="row">
+        <AptDealList />
       </div>
     </StyledWrapper>
   )
@@ -44,13 +52,15 @@ const StyledWrapper = styled.div`
   }
 
   .title {
-    font-size: 30px;
+    font-size: 22px;
     font-weight: bold;
+    line-height: 0;
   }
 
   .sub-title {
-    font-size: 20px;
+    font-size: 14px;
     font-weight: 500;
+    color: gray;
   }
   .text {
     text-align: center;
