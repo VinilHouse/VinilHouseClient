@@ -14,10 +14,11 @@ const areaType = [143.56, 178.35]
 const AptDetail = ({ data }) => {
   console.log(data)
 
+  console.log(data.houseInfoResponseDto.img)
   return (
     <StyledWrapper>
       <AptImage src={data.houseInfoResponseDto.img} />
-      <div id="detail-header">
+      <StyledHeader imgRendered={data.houseInfoResponseDto.img != 'NONE'}>
         <div className="row">
           <ArrowLeftOutlined style={{ fontSize: '15px', padding: '7px' }} />
           <span className="title">{data.houseInfoResponseDto.name}</span>
@@ -30,7 +31,7 @@ const AptDetail = ({ data }) => {
             {data.houseInfoResponseDto.buildYear}년 건축
           </span>
         </div>
-      </div>
+      </StyledHeader>
 
       <div className="row">
         <AptChartTab areaType={areaType} />
@@ -60,9 +61,13 @@ const StyledWrapper = styled.div`
   .sub-title {
     font-size: 14px;
     font-weight: 500;
-    color: gray;
   }
   .text {
     text-align: center;
   }
+`
+const StyledHeader = styled.div`
+  background-color: rgba(43, 192, 228, 0.8);
+  position: ${(props) => (props.imgRendered ? 'relative' : 'static')};
+  top: ${(props) => (props.imgRendered ? '-6px' : '0px')};
 `
