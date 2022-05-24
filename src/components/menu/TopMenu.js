@@ -1,26 +1,53 @@
 import styled from '@emotion/styled'
 import { Button, Avatar } from 'antd'
 import { useRecoilState } from 'recoil'
-import { modalLoginVisibleState } from 'src/store/states'
+import { modalLoginVisibleState, userLat, userLng } from 'src/store/states'
 import { AimOutlined, UserOutlined, ControlOutlined } from '@ant-design/icons'
 
 const TopMenu = () => {
-  const [_, setIsModalLoginVisible] = useRecoilState(modalLoginVisibleState)
+  const [t1, setIsModalLoginVisible] = useRecoilState(modalLoginVisibleState)
+  const [t2, setUserLat] = useRecoilState(userLat)
+  const [t3, setUserLng] = useRecoilState(userLng)
 
-  const onClickHandler = () => {
+  const onUserClick = () => {
     setIsModalLoginVisible((prevState) => {
       console.log(prevState)
       return !prevState
     })
   }
 
+  const onUserAimClick = () => {
+    var options = {
+      enableHighAccuracy: true,
+      timeout: 5000,
+      maximumAge: 0,
+    }
+
+    function success(pos) {
+      var crd = pos.coords
+
+      console.log('Your current position is:')
+      console.log(`Latitude : ${crd.latitude}`)
+      console.log(`Longitude: ${crd.longitude}`)
+      console.log(`More or less ${crd.accuracy} meters.`)
+      setUserLat(crd.latitude)
+      setUserLng(crd.longitude)
+    }
+
+    function error(err) {
+      console.warn(`ERROR(${err.code}): ${err.message}`)
+    }
+
+    navigator.geolocation.getCurrentPosition(success, error, options)
+  }
+
   return (
     <StyledWrapper>
       <div className="menu-div">
-        <UserOutlined onClick={onClickHandler} />
+        <UserOutlined onClick={onUserClick} />
       </div>
       <div className="menu-div">
-        <AimOutlined />
+        <AimOutlined onClick={onUserAimClick} />
       </div>
       <div className="menu-div">
         <ControlOutlined />
