@@ -14,7 +14,7 @@ const KakaoMap = () => {
   const [markerPositions, setMarkerPositions] = useState([])
   const [_, setAptCodeState] = useRecoilState(aptCodeState)
   const container = useRef(null)
-  const selectedMarker = useRef(null)
+  const [selectedAptCode, setSelectedAptCode] = useState()
 
   useEffect(() => {
     const script = document.createElement('script')
@@ -306,11 +306,16 @@ const KakaoMap = () => {
     const markerInforms = content.map((e) => {
       // eslint-disable-next-line no-use-before-define
       let $wrap = document.createElement('div')
+      let backColor = '#2BC0E4'
+
+      if (level < MAP_LEVEL_THRESHOLD.DETAIL && e.aptCode == selectedAptCode) {
+        backColor = 'red'
+      }
       $wrap.style.cssText = `
-      width:90px; height:50px; background-color:#2BC0E4; text-align:center;
+      width:90px; height:50px; background-color:${backColor}; text-align:center;
     `
 
-      const zoomMap = async (selected) => {
+      const zoomMap = async () => {
         let result = await mapSmt(kakaoMap)
         let newCenter = new kakao.maps.LatLng(e.lat, e.lng)
         let newLevel = downLevel(level)
@@ -319,10 +324,7 @@ const KakaoMap = () => {
 
         setContent(result.data.content)
         if (level < MAP_LEVEL_THRESHOLD.DETAIL) {
-          // let prev = document.querySelector('selected-marker')
-          // prev && (prev.className = '')
-          selected.target.className = 'selected-marker'
-          console.log(selected.target)
+          setSelectedAptCode(e.aptCode)
           setAptCodeState(e.aptCode)
         }
       }
