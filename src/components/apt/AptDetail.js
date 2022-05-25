@@ -10,20 +10,23 @@ import AptDealList from './AptDealList'
 import AptImage from './AptImage'
 
 const AptDetail = ({ data }) => {
+  console.log('aptDetail')
+  console.log(data)
+  console.log(data.houseInfoResponseDto?.img)
   return (
     <StyledWrapper>
-      <AptImage src={data.houseInfoResponseDto.img} />
-      <StyledHeader imgRendered={data.houseInfoResponseDto.img != 'NONE'}>
+      <AptImage src={data.houseInfoResponseDto?.img} />
+      <StyledHeader imgRendered={data.houseInfoResponseDto?.img != 'NONE'}>
         <div className="row">
           <ArrowLeftOutlined style={{ fontSize: '15px', padding: '7px' }} />
-          <span className="title">{data.houseInfoResponseDto.name}</span>
+          <span className="title">{data.houseInfoResponseDto?.name}</span>
           <CloseOutlined style={{ fontSize: '15px', padding: '7px' }} />
         </div>
         <div className="text sub-title">
           <span>
-            {data.houseInfoResponseDto.dongName}{' '}
-            {data.houseInfoResponseDto.jibun}{' '}
-            {data.houseInfoResponseDto.buildYear}년 건축
+            {data.houseInfoResponseDto?.dongName}{' '}
+            {data.houseInfoResponseDto?.jibun}{' '}
+            {data.houseInfoResponseDto?.buildYear}년 건축
           </span>
         </div>
       </StyledHeader>

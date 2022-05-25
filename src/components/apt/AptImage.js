@@ -5,7 +5,7 @@ const myLoader = ({ src, width, height, quality }) => {
 }
 
 const AptImage = ({ src }) => {
-  if (src == 'NONE') return <></>
+  if (src == 'NONE' || !src) return <></>
   return (
     <Image
       loader={myLoader}

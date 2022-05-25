@@ -1,19 +1,31 @@
+import { useState } from 'react'
 import styled from '@emotion/styled'
 import Image from 'next/image'
-import { logo } from 'public/assets/img'
-import { SearchOutlined } from '@ant-design/icons'
 import { Input } from 'antd'
+import { logo } from 'public/assets/img'
+import http from 'src/api/http'
+import { useRecoilState } from 'recoil'
+import { searchResultState } from 'src/store/states'
 
 const SearchInput = () => {
+  const [input, setInput] = useState('')
+  const [_, setSearchResultState] = useRecoilState(searchResultState)
+
+  const onSubmitHandler = async () => {
+    const result = await http.get(`/houses/search?prefix=${input}`)
+
+    setSearchResultState({ query: input, content: result?.data?.content })
+  }
   return (
     <SearchInputWrapper>
       <Image src={logo} alt="happy house logo" width={40} height={40} />
       <SearchInputTag>
-        <Input placeholder="아파트 또는 지역명으로 검색" />
+        <Input.Search
+          placeholder="아파트 또는 지역명으로 검색"
+          onChange={(e) => setInput(e.target.value)}
+          onSearch={onSubmitHandler}
+        />
       </SearchInputTag>
-      <ImageWrapper>
-        <SearchOutlined style={{ fontSize: '25px' }} />
-      </ImageWrapper>
     </SearchInputWrapper>
   )
 }
@@ -21,7 +33,7 @@ const SearchInput = () => {
 export default SearchInput
 
 const SearchInputTag = styled.div`
-  width: 280px;
+  width: 310px;
 `
 
 const SearchInputWrapper = styled.div`

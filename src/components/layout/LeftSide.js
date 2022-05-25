@@ -1,15 +1,18 @@
 import styled from '@emotion/styled'
 import { useEffect, useState } from 'react'
-import { useRecoilValue } from 'recoil'
-import { aptCodeState } from 'src/store/states'
-import AptDetail from '../apt/AptDetail'
+import { useRecoilState, useRecoilValue } from 'recoil'
+import http from 'src/api/http'
+import { aptCodeState, searchResultState } from 'src/store/states'
 import RankSwiper from '../searchMenu/RankSwiper'
 import SearchGroup from '../searchMenu/SearchGroup'
-import http from 'src/api/http'
+import LeftSideContent from './LeftSideContent'
 
 const LeftSide = () => {
   const aptCode = useRecoilValue(aptCodeState)
-  const [aptData, setAptData] = useState()
+  const searchResult = useRecoilValue(searchResultState)
+  const [data, setData] = useState(false)
+  console.log('LeftSide!')
+  console.log(data)
   useEffect(() => {
     if (!aptCode) return
     async function fetchData() {
@@ -17,7 +20,7 @@ const LeftSide = () => {
     }
     fetchData()
       .then(({ data }) => {
-        setAptData(data.content)
+        setData({ mode: 'aptDetail', data: data.content })
       })
       .catch((err) => {
         console.log(`err occured!`)
@@ -25,10 +28,15 @@ const LeftSide = () => {
       })
   }, [aptCode])
 
+  useEffect(() => {
+    if (!searchResult) return
+    setData({ mode: 'searchResult', data: searchResult })
+  }, [searchResult])
+
   return (
     <LeftSideWrapper>
       <SearchGroup />
-      {aptData ? <AptDetail data={aptData} /> : <RankSwiper />}
+      {data ? <LeftSideContent data={data} /> : <RankSwiper />}
     </LeftSideWrapper>
   )
 }
@@ -43,4 +51,6 @@ const LeftSideWrapper = styled.div`
   left: 1em;
   display: flex;
   flex-direction: column;
+  max-height: 90vh;
+  overflow: scroll;
 `

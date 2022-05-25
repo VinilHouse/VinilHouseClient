@@ -28,10 +28,16 @@ const userLocation = atom({
   },
 })
 
+const searchResultState = atom({
+  key: 'searchResultState',
+  default: false,
+})
+
 export {
   aptCodeState,
   modalLoginVisibleState as modalLoginVisibleState,
   modalRegistVisibleState as modalRegistVisibleState,
   userLocation,
   modalSlideVisibleState,
+  searchResultState,
 }

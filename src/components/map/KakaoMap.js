@@ -17,7 +17,6 @@ const KakaoMap = () => {
 
   useEffect(() => {
     if (!kakaoMap) return
-    console.log(userLoc.lat + ' ' + userLoc.lng)
     let newUserCenter = new kakao.maps.LatLng(userLoc.lat, userLoc.lng)
     kakaoMap.setCenter(newUserCenter)
     // let newLevel = downLevel(level)
