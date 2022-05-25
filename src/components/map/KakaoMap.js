@@ -317,7 +317,7 @@ const KakaoMap = () => {
       let backColor = '#2BC0E4'
 
       if (level < MAP_LEVEL_THRESHOLD.DETAIL && e.aptCode == selectedAptCode) {
-        backColor = 'red'
+        backColor = '#DD5E89'
       }
       $wrap.style.cssText = `
       width:90px; height:50px; background-color:${backColor}; text-align:center;

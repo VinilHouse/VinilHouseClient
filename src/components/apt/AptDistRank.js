@@ -25,7 +25,7 @@ const columns = [
 const AptDistRank = ({ distData }) => {
   console.log(distData)
 
-  const data = distData.map((e, idx) => {
+  const data = distData?.map((e, idx) => {
     return {
       key: `${idx}`,
       dist: `${e.dist.toFixed(2)}KM`,
@@ -34,6 +34,7 @@ const AptDistRank = ({ distData }) => {
     }
   })
 
+  if (!distData) return
   return (
     <StyledWrapper>
       <div id="title">나만의 장소로부터의 거리</div>

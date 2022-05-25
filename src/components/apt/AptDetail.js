@@ -1,7 +1,9 @@
 import styled from '@emotion/styled'
 import 'antd/dist/antd.css'
 import { useEffect, useState } from 'react'
+import { useRecoilValue } from 'recoil'
 import http from 'src/api/http'
+import { isLogInState } from 'src/store/states'
 import AptChartTab from './AptChartTab'
 import AptDistRank from './AptDistRank'
 import AptImage from './AptImage'
@@ -9,7 +11,7 @@ import HeartButton from './HeartButton'
 
 const AptDetail = ({ data }) => {
   const [distData, setDistData] = useState()
-
+  const isLogIn = useRecoilValue(isLogInState)
   useEffect(() => {
     http
       .get(`/members/dist?aptCode=${data.houseInfoResponseDto.aptCode}`)
@@ -41,7 +43,7 @@ const AptDetail = ({ data }) => {
         <AptChartTab areaType={data.groupList} />
       </div>
 
-      <AptDistRank distData={distData} />
+      {isLogIn && <AptDistRank distData={distData} />}
     </StyledWrapper>
   )
 }
