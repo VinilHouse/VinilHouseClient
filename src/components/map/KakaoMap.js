@@ -40,7 +40,7 @@ const KakaoMap = () => {
         const map = new kakao.maps.Map(container.current, options)
 
         container.current.style.width = `100%`
-        container.current.style.height = `98vh`
+        container.current.style.height = `100vh`
         kakao.maps.event.addListener(map, 'idle', async () => {
           let bounds = map.getBounds()
 
