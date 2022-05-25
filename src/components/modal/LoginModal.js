@@ -19,10 +19,14 @@ const LoginModal = () => {
   const handleOk = () => {
     console.log('ok')
     http
-      .post('/members/login', {
-        ident: id,
-        password: pw,
-      })
+      .post(
+        '/members/login',
+        {
+          ident: id,
+          password: pw,
+        },
+        { withCredentials: true },
+      )
       .then((res) => {
         if (res.status == 200) {
           alert(`${id} 님 로그인 되었습니다!`)

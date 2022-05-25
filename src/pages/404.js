@@ -19,7 +19,7 @@ const MyCustom404Page = (props) => {
           </a>
         </Link>
       </h2>
-      <p>Sorry, the content you are looking for cuould not be found.</p>
+      {/* <p>Sorry, the content you are looking for cuould not be found.</p> */}
     </div>
   )
 }
