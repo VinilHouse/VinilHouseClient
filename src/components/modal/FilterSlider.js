@@ -12,7 +12,7 @@ const FilterSlider = () => {
   return (
     <StyledWrapper>
       <Row>
-        <Col span={2}>
+        <Col span={5}>
           <h5 className="slide-title">가격</h5>
         </Col>
         <Col span={18}>
@@ -34,13 +34,35 @@ const FilterSlider = () => {
         </Col>
       </Row>
       <Row>
-        <Col span={2}>
-          <h5 className="slide-title">가격</h5>
+        <Col span={5}>
+          <h5 className="slide-title">면적</h5>
         </Col>
         <Col span={18}>
           <Slider
+            min={3}
+            max={40}
+            onChange={onChange}
+            value={typeof inputValue === 'number' ? inputValue : 0}
+          />
+        </Col>
+        <Col span={1}>
+          <InputNumber
             min={1}
             max={20}
+            style={{ margin: '0 16px', width: '65px' }}
+            value={inputValue}
+            onChange={onChange}
+          />
+        </Col>
+      </Row>
+      <Row>
+        <Col span={5}>
+          <h5 className="slide-title">연도</h5>
+        </Col>
+        <Col span={18}>
+          <Slider
+            min={2006}
+            max={2022}
             onChange={onChange}
             value={typeof inputValue === 'number' ? inputValue : 0}
           />
@@ -64,8 +86,15 @@ export default FilterSlider
 const StyledWrapper = styled.div`
   position: absolute;
   top: 190px;
-  right: 130px;
-  .Col {
-    color: black;
+  right: 80px;
+  background-color: grey;
+  padding-left: 10px;
+  padding-right: 80px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border: 1px solid #909090;
+  border-radius: 5px;
+  .slide-title {
+    padding-top: 5px;
   }
 `
