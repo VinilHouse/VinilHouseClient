@@ -12,7 +12,7 @@ import AptImage from './AptImage'
 const AptDetail = ({ data }) => {
   console.log('aptDetail')
   console.log(data)
-  console.log(data.houseInfoResponseDto?.img)
+
   return (
     <StyledWrapper>
       <AptImage src={data.houseInfoResponseDto?.img} />

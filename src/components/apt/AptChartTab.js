@@ -24,7 +24,7 @@ const AptChartTab = ({ areaType }) => {
         {areaType ? (
           areaType.map((e, idx) => {
             return (
-              <TabPane tab={areaToString(e.py)} key={idx}>
+              <TabPane tab={`${e.py}평`} key={idx}>
                 <AptPriceChart monthData={e.dealList} />
                 <AptDealList dealData={e.dealList} />
               </TabPane>
