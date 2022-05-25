@@ -43,7 +43,7 @@ const SignIn = ({ setUserData }) => {
       >
         <Input
           prefix={<UserOutlined className="site-form-item-icon" />}
-          placeholder="Username"
+          placeholder="아이디"
           onChange={(e) => setId(e.target.value)}
         />
       </Form.Item>
@@ -59,22 +59,22 @@ const SignIn = ({ setUserData }) => {
         <Input
           prefix={<LockOutlined className="site-form-item-icon" />}
           type="password"
-          placeholder="Password"
+          placeholder="비밀번호"
           onChange={(e) => setPw(e.target.value)}
         />
       </Form.Item>
       <Form.Item>
         <Form.Item name="remember" valuePropName="checked" noStyle>
-          <Checkbox>Remember me</Checkbox>
+          <Checkbox>아이디 기억하기</Checkbox>
         </Form.Item>
-
+        <br />
         <a className="login-form-forgot" href="">
-          Forgot password
+          비밀번호 찾기
         </a>
       </Form.Item>
       <Form.Item>
         <a href="#" onClick={onRegister}>
-          register now!
+          아이디가 없으시다면, 회원가입 해봐요!
         </a>
       </Form.Item>
     </Form>

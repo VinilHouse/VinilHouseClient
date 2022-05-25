@@ -41,22 +41,18 @@ const LoginModal = () => {
 
   const handleLogout = () => {
     http
-      .post('/members/logout', {
-        ident: userData.id,
-        password: userData.pw,
-      })
+      .post('/members/logout')
       .then((res) => {
         if (res.status == 200) {
-          alert(`${userData.id}님 로그인 되었습니다!`)
-          setIsLoggedIn(true)
-          setIsModalLoginVisible(false)
+          alert(`${userData.id}님 로그아웃 되셨습니다`)
         } else {
-          alert('로그인에 실패했습니다.')
+          alert('로그아웃에 실패했습니다.')
         }
-        console.log(res)
+        setIsLoggedIn(false)
+        setIsModalLoginVisible(false)
       })
       .catch((err) => {
-        alert('잘못된 아이디나 비밀번호입니다.')
+        alert('실패했습니다.')
         console.log(err)
       })
   }
@@ -65,7 +61,7 @@ const LoginModal = () => {
     <Modal
       title={isLoggedIn ? 'MyPage' : 'Login'}
       visible={isModalLoginVisible}
-      onOk={handleOk}
+      onOk={isLoggedIn ? handleLogout : handleOk}
       okText={isLoggedIn ? '로그아웃' : '로그인'}
       onCancel={handleCancel}
       cancelButtonProps={{ style: { display: 'none' } }}

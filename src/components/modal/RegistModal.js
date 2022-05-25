@@ -92,6 +92,8 @@ const RegistModal = () => {
       title="Register"
       visible={isModalRegistVisible}
       onOk={handleOk}
+      okText="회원가입"
+      cancelButtonProps={{ style: { display: 'none' } }}
       onCancel={handleCancel}
     >
       <Form
@@ -106,15 +108,15 @@ const RegistModal = () => {
       >
         <Form.Item
           name="id"
-          label="id"
+          label="아이디"
           rules={[
             {
               type: 'id',
-              message: 'The input is not valid id!',
+              message: '다른 아이디를 입력해주세요!',
             },
             {
               required: true,
-              message: 'Please input your id',
+              message: '아이디를 입력해주세요',
             },
           ]}
         >
@@ -126,11 +128,11 @@ const RegistModal = () => {
           rules={[
             {
               type: 'email',
-              message: 'The input is not valid E-mail!',
+              message: '올바른 이메일 형식이 아닙니다.',
             },
             {
               required: true,
-              message: 'Please input your E-mail!',
+              message: '이메일을 입력해주세요!',
             },
           ]}
         >
@@ -139,11 +141,11 @@ const RegistModal = () => {
 
         <Form.Item
           name="password"
-          label="Password"
+          label="비밀번호"
           rules={[
             {
               required: true,
-              message: 'Please input your password!',
+              message: '비밀번호를 입력해주세요',
             },
           ]}
           hasFeedback
@@ -153,13 +155,13 @@ const RegistModal = () => {
 
         <Form.Item
           name="confirm"
-          label="Confirm Password"
+          label="비밀번호 확인"
           dependencies={['password']}
           hasFeedback
           rules={[
             {
               required: true,
-              message: 'Please confirm your password!',
+              message: '비밀번호와 일치 하지 않습니다.',
             },
             ({ getFieldValue }) => ({
               validator(_, value) {
@@ -168,7 +170,7 @@ const RegistModal = () => {
                 }
 
                 return Promise.reject(
-                  new Error('The two passwords that you entered do not match!'),
+                  new Error('비밀번호와 일치 하지 않습니다.'),
                 )
               },
             }),
@@ -177,26 +179,9 @@ const RegistModal = () => {
           <Input.Password onChange={(e) => setPwcf(e.target.value)} />
         </Form.Item>
 
-        <Form.Item
-          name="agreement"
-          valuePropName="checked"
-          rules={[
-            {
-              validator: (_, value) =>
-                value
-                  ? Promise.resolve()
-                  : Promise.reject(new Error('Should accept agreement')),
-            },
-          ]}
-          {...tailFormItemLayout}
-        >
-          <Checkbox>
-            I have read the <a href="">agreement</a>
-          </Checkbox>
-        </Form.Item>
         <Form.Item {...tailFormItemLayout}>
           <a href="#" onClick={onLogin}>
-            login now!
+            로그인하기
           </a>
         </Form.Item>
       </Form>

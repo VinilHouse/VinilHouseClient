@@ -1,8 +1,9 @@
 import styled from '@emotion/styled'
-import { List, Table } from 'antd'
+import { Divider, List, Table } from 'antd'
 import { useEffect, useState } from 'react'
 import http from 'src/api/http'
 import { priceToString } from 'src/utils'
+import MyLocation from './MyLocation'
 
 const columns = [
   {
@@ -36,6 +37,10 @@ const MyPage = () => {
         setFavorites(data.content)
       })
       .catch((err) => console.log(err))
+
+    const script = document.createElement('script')
+    script.src = '//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js'
+    document.head.appendChild(script)
   }, [])
 
   useEffect(() => {
@@ -54,12 +59,31 @@ const MyPage = () => {
 
   return (
     <StyledWrapper>
-      <div>관심 아파트</div>
-      <Table columns={columns} dataSource={data} size="small" />
+      <MyLocation />
+      <div id="title">관심 아파트</div>
+      <div id="table-wrapper">
+        <Table
+          columns={columns}
+          dataSource={data}
+          size="small"
+          style={{ width: '90%', margin: 'auto' }}
+        />
+      </div>
     </StyledWrapper>
   )
 }
 
 export default MyPage
 
-const StyledWrapper = styled.div``
+const StyledWrapper = styled.div`
+  #title {
+    margin: 10px 20px;
+    font-size: 20x;
+    font-weight: 600;
+    line-height: 32px;
+  }
+  #table-wrapper {
+    display: flex;
+    justify-items: center;
+  }
+`
