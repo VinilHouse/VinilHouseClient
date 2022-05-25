@@ -22,27 +22,40 @@ ChartJS.register(
 )
 
 const options = {
-  responsive: true,
+  scales: {
+    x: {
+      offset: true,
+    },
+  },
 }
 
 const AptPriceChart = ({ monthData }) => {
+  console.log('aptpriceChart')
   console.log(monthData)
-  const labels = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-  ]
+  // const labels = [
+  //   'January',
+  //   'February',
+  //   'March',
+  //   'April',
+  //   'May',
+  //   'June',
+  //   'July',
+  // ]
 
+  const labels = monthData.map((e) => {
+    return `${e.dealYear}-${e.dealMonth}-${e.dealDay}`
+  })
+
+  console.log(labels)
+  const amount = monthData.map((e) => e.dealAmount)
+
+  console.log(amount)
   const data = {
     labels,
     datasets: [
       {
         label: 'Dataset 1',
-        data: labels.map(() => [1000, 1000, 1000, 1000, 1000, 1000, 1000]),
+        data: amount,
         borderColor: 'rgb(255, 99, 132)',
         backgroundColor: 'rgba(255, 99, 132, 0.5)',
       },

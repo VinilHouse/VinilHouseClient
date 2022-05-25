@@ -47,7 +47,6 @@ const StyledWrapper = styled.div`
     align-items: center;
     margin: 0 0 10px;
     opacity: 0.8;
-    width: 50%;
     display: flex;
 
     & button {
