@@ -55,5 +55,4 @@ const LeftSideWrapper = styled.div`
   ${(props) => (props.isWholeRendered ? 'height: 100%;' : '')};
   max-height: 100%;
   max-width: 394px;
-  overflow: auto;
 `

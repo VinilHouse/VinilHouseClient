@@ -1,12 +1,22 @@
 import styled from '@emotion/styled'
 import 'antd/dist/antd.css'
+import { useEffect, useState } from 'react'
+import http from 'src/api/http'
 import AptChartTab from './AptChartTab'
+import AptDistRank from './AptDistRank'
 import AptImage from './AptImage'
 import HeartButton from './HeartButton'
 
 const AptDetail = ({ data }) => {
-  console.log('aptDetail')
-  console.log(data)
+  const [distData, setDistData] = useState()
+
+  useEffect(() => {
+    http
+      .get(`/members/dist?aptCode=${data.houseInfoResponseDto.aptCode}`)
+      .then(({ data }) => {
+        setDistData(data.content.groups)
+      })
+  }, [])
 
   return (
     <StyledWrapper>
@@ -30,6 +40,8 @@ const AptDetail = ({ data }) => {
       <div className="row">
         <AptChartTab areaType={data.groupList} />
       </div>
+
+      <AptDistRank distData={distData} />
     </StyledWrapper>
   )
 }
