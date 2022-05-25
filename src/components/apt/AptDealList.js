@@ -34,12 +34,15 @@ const AptDealList = ({ dealData }) => {
   })
   return (
     <StyledWrapper>
-      <Table columns={columns} dataSource={data} />
+      <Table columns={columns} dataSource={data} size="small" />
     </StyledWrapper>
   )
 }
 export default AptDealList
 
 const StyledWrapper = styled.div`
-  width: 100%;
+  width: 99%;
+  .ant-table-cell {
+    text-align: center;
+  }
 `

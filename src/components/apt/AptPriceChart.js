@@ -23,11 +23,6 @@ ChartJS.register(
 
 const options = {
   responsive: true,
-  plugins: {
-    legend: {
-      position: 'bottom',
-    },
-  },
 }
 
 const AptPriceChart = ({ monthData }) => {
@@ -50,12 +45,6 @@ const AptPriceChart = ({ monthData }) => {
         data: labels.map(() => [1000, 1000, 1000, 1000, 1000, 1000, 1000]),
         borderColor: 'rgb(255, 99, 132)',
         backgroundColor: 'rgba(255, 99, 132, 0.5)',
-      },
-      {
-        label: 'Dataset 2',
-        data: labels.map(() => [1000, 1000, 1000, 1000, 1000, 1000, 1000]),
-        borderColor: 'rgb(53, 162, 235)',
-        backgroundColor: 'rgba(53, 162, 235, 0.5)',
       },
     ],
   }

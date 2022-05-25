@@ -12,8 +12,9 @@ const KakaoMap = () => {
   const [markers, setMarkers] = useState([])
   const [content, setContent] = useState([])
   const [markerPositions, setMarkerPositions] = useState([])
-  const container = useRef(null)
   const [_, setAptCodeState] = useRecoilState(aptCodeState)
+  const container = useRef(null)
+  const selectedMarker = useRef(null)
 
   useEffect(() => {
     const script = document.createElement('script')
@@ -52,6 +53,7 @@ const KakaoMap = () => {
 
           const result = await http.get(`${url}`)
 
+          console.log('idle called')
           console.log(result)
           setContent(result.data.content)
         })
@@ -308,7 +310,7 @@ const KakaoMap = () => {
       width:90px; height:50px; background-color:#2BC0E4; text-align:center;
     `
 
-      const zoomMap = async () => {
+      const zoomMap = async (selected) => {
         let result = await mapSmt(kakaoMap)
         let newCenter = new kakao.maps.LatLng(e.lat, e.lng)
         let newLevel = downLevel(level)
@@ -317,6 +319,10 @@ const KakaoMap = () => {
 
         setContent(result.data.content)
         if (level < MAP_LEVEL_THRESHOLD.DETAIL) {
+          // let prev = document.querySelector('selected-marker')
+          // prev && (prev.className = '')
+          selected.target.className = 'selected-marker'
+          console.log(selected.target)
           setAptCodeState(e.aptCode)
         }
       }
