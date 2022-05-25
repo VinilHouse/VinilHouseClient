@@ -12,7 +12,6 @@ const KakaoMap = () => {
   const [markers, setMarkers] = useState([])
   const [content, setContent] = useState([])
   const [markerPositions, setMarkerPositions] = useState([])
-  const container = useRef(null)
   const [_, setAptCodeState] = useRecoilState(aptCodeState)
   const userLoc = useRecoilValue(userLocation)
 
@@ -23,6 +22,8 @@ const KakaoMap = () => {
     kakaoMap.setCenter(newUserCenter)
     // let newLevel = downLevel(level)
   }, [userLoc])
+  const container = useRef(null)
+  const [selectedAptCode, setSelectedAptCode] = useState()
 
   useEffect(() => {
     const script = document.createElement('script')
@@ -61,6 +62,7 @@ const KakaoMap = () => {
 
           const result = await http.get(`${url}`)
 
+          console.log('idle called')
           console.log(result)
           setContent(result.data.content)
         })
@@ -313,8 +315,13 @@ const KakaoMap = () => {
     const markerInforms = content.map((e) => {
       // eslint-disable-next-line no-use-before-define
       let $wrap = document.createElement('div')
+      let backColor = '#2BC0E4'
+
+      if (level < MAP_LEVEL_THRESHOLD.DETAIL && e.aptCode == selectedAptCode) {
+        backColor = 'red'
+      }
       $wrap.style.cssText = `
-      width:90px; height:50px; background-color:#2BC0E4; text-align:center;
+      width:90px; height:50px; background-color:${backColor}; text-align:center;
     `
 
       const zoomMap = async () => {
@@ -326,6 +333,7 @@ const KakaoMap = () => {
 
         setContent(result.data.content)
         if (level < MAP_LEVEL_THRESHOLD.DETAIL) {
+          setSelectedAptCode(e.aptCode)
           setAptCodeState(e.aptCode)
         }
       }
