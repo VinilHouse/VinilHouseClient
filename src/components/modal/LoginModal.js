@@ -1,122 +1,76 @@
 import React, { useState } from 'react'
-import http from 'src/api/http.js'
-import { Form, Input, Modal, Checkbox } from 'antd'
 import { useRecoilState } from 'recoil'
-import { modalLoginVisibleState } from 'src/store/states'
-import { modalRegistVisibleState } from 'src/store/states'
-import { UserOutlined, LockOutlined } from '@ant-design/icons'
+import { Modal } from 'antd'
+import { isLogInState, modalLoginVisibleState } from 'src/store/states'
+import SignIn from '../user/SignIn'
+import http from 'src/api/http'
+import MyPage from '../user/MyPage'
 
 const LoginModal = () => {
   const [isModalLoginVisible, setIsModalLoginVisible] = useRecoilState(
     modalLoginVisibleState,
   )
-  const [isModalRegistVisible, setIsModalRegistVisible] = useRecoilState(
-    modalRegistVisibleState,
-  )
-  const [id, setId] = useState(0)
-  const [pw, setPw] = useState(0)
+  const [userData, setUserData] = useState()
+  const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLogInState)
+
+  const handleCancel = () => {
+    setIsModalLoginVisible(false)
+  }
 
   const handleOk = () => {
-    console.log('ok')
     http
       .post('/members/login', {
-        ident: id,
-        password: pw,
+        ident: userData.id,
+        password: userData.pw,
       })
       .then((res) => {
         if (res.status == 200) {
-          alert(`${id} 님 로그인 되었습니다!`)
+          alert(`${userData.id}님 로그인 되었습니다!`)
+          setIsLoggedIn(true)
           setIsModalLoginVisible(false)
         } else {
-          alert('로그인에 실패했습니다!')
+          alert('로그인에 실패했습니다.')
         }
         console.log(res)
       })
       .catch((err) => {
-        alert('로그인에 실패했습니다!')
+        alert('잘못된 아이디나 비밀번호입니다.')
+        console.log(err)
       })
   }
 
-  const handleCancel = () => {
-    console.log('cancel')
-    setIsModalLoginVisible(false)
-  }
-
-  const onFinish = (values) => {
-    console.log('Success:', values)
-  }
-
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo)
-  }
-
-  const onRegister = () => {
-    console.log('register')
-    setIsModalLoginVisible(false)
-    setIsModalRegistVisible(true)
+  const handleLogout = () => {
+    http
+      .post('/members/logout', {
+        ident: userData.id,
+        password: userData.pw,
+      })
+      .then((res) => {
+        if (res.status == 200) {
+          alert(`${userData.id}님 로그인 되었습니다!`)
+          setIsLoggedIn(true)
+          setIsModalLoginVisible(false)
+        } else {
+          alert('로그인에 실패했습니다.')
+        }
+        console.log(res)
+      })
+      .catch((err) => {
+        alert('잘못된 아이디나 비밀번호입니다.')
+        console.log(err)
+      })
   }
 
   return (
     <Modal
-      title="Login"
+      title={isLoggedIn ? 'MyPage' : 'Login'}
       visible={isModalLoginVisible}
       onOk={handleOk}
+      okText={isLoggedIn ? '로그아웃' : '로그인'}
       onCancel={handleCancel}
+      cancelButtonProps={{ style: { display: 'none' } }}
     >
-      <Form
-        name="normal_login"
-        className="login-form"
-        initialValues={{
-          remember: true,
-        }}
-        onFinish={onFinish}
-      >
-        <Form.Item
-          name="username"
-          rules={[
-            {
-              required: true,
-              message: 'Please input your Username!',
-            },
-          ]}
-        >
-          <Input
-            prefix={<UserOutlined className="site-form-item-icon" />}
-            placeholder="Username"
-            onChange={(e) => setId(e.target.value)}
-          />
-        </Form.Item>
-        <Form.Item
-          name="password"
-          rules={[
-            {
-              required: true,
-              message: 'Please input your Password!',
-            },
-          ]}
-        >
-          <Input
-            prefix={<LockOutlined className="site-form-item-icon" />}
-            type="password"
-            placeholder="Password"
-            onChange={(e) => setPw(e.target.value)}
-          />
-        </Form.Item>
-        <Form.Item>
-          <Form.Item name="remember" valuePropName="checked" noStyle>
-            <Checkbox>Remember me</Checkbox>
-          </Form.Item>
-
-          <a className="login-form-forgot" href="">
-            Forgot password
-          </a>
-        </Form.Item>
-        <Form.Item>
-          <a href="#" onClick={onRegister}>
-            register now!
-          </a>
-        </Form.Item>
-      </Form>
+      {isLoggedIn ? <MyPage /> : <SignIn setUserData={setUserData} />}
     </Modal>
   )
 }

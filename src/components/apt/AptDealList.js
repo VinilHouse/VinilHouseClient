@@ -1,6 +1,6 @@
-import React from 'react'
-import { Table, Tag, Space } from 'antd'
 import styled from '@emotion/styled'
+import { Table } from 'antd'
+import React from 'react'
 
 const columns = [
   {

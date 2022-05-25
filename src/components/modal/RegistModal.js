@@ -71,15 +71,15 @@ const RegistModal = () => {
         password: pw,
       })
       .then((res) => {
+        alert('회원가입에 성공했습니다.')
         console.log(res)
+        setIsModalRegistVisible(false)
+        setIsModalLoginVisible(true)
       })
       .catch((err) => {
+        alert(err.response.data.content)
         console.log(err)
       })
-
-    alert('회원가입에 성공했습니다.')
-    setIsModalRegistVisible(false)
-    setIsModalLoginVisible(true)
   }
 
   const handleCancel = () => {

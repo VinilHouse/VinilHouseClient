@@ -1,18 +1,27 @@
 import styled from '@emotion/styled'
 import { Button, Avatar } from 'antd'
-import { useRecoilState } from 'recoil'
-import { modalLoginVisibleState, userLocation } from 'src/store/states'
-import { AimOutlined, UserOutlined, ControlOutlined } from '@ant-design/icons'
+import { useRecoilState, useRecoilValue } from 'recoil'
+import {
+  isLogInState,
+  modalLoginVisibleState,
+  userLocation,
+} from 'src/store/states'
+import {
+  AimOutlined,
+  UserOutlined,
+  ControlOutlined,
+  KeyOutlined,
+} from '@ant-design/icons'
 import FilterSlider from 'src/components/modal/FilterSlider'
 import { useState } from 'react'
 
 const TopMenu = () => {
   const [_, setIsModalLoginVisible] = useRecoilState(modalLoginVisibleState)
   const [__, setUserLocation] = useRecoilState(userLocation)
+  const isLoggedIn = useRecoilValue(isLogInState)
   const [isVisible, setIsVisible] = useState(false)
   const onUserClick = () => {
     setIsModalLoginVisible((prevState) => {
-      console.log(prevState)
       return !prevState
     })
   }
@@ -46,8 +55,17 @@ const TopMenu = () => {
   return (
     <StyledWrapper>
       <div className="menu-div">
-        <UserOutlined onClick={onUserClick} />
-        <h5>LOGIN</h5>
+        {!isLoggedIn ? (
+          <>
+            <KeyOutlined onClick={onUserClick} />
+            <h5>LOGIN</h5>
+          </>
+        ) : (
+          <>
+            <UserOutlined onClick={onUserClick} />
+            <div>MY PAGE</div>
+          </>
+        )}
       </div>
       <div className="menu-div">
         <AimOutlined onClick={onUserAimClick} />
