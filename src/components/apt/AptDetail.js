@@ -14,7 +14,9 @@ const AptDetail = ({ data }) => {
       <StyledHeader imgRendered={data.houseInfoResponseDto?.img != 'NONE'}>
         <div className="row first">
           <div className="title">{data.houseInfoResponseDto?.name}</div>
-          {data.houseInfoResponseDto?.img == 'NONE' && <HeartButton />}
+          {data.houseInfoResponseDto?.img == 'NONE' && (
+            <HeartButton aptCode={data.houseInfoResponseDto.aptCode} />
+          )}
         </div>
         <div className="row text sub-title">
           <span>

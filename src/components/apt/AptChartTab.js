@@ -12,6 +12,8 @@ const onChange = (key) => {
 }
 
 const AptChartTab = ({ areaType }) => {
+  console.log(areaType)
+
   return (
     <StyledWrapper>
       <Tabs

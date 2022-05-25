@@ -1,12 +1,43 @@
 import { HeartFilled, HeartTwoTone } from '@ant-design/icons'
 import styled from '@emotion/styled'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import http from 'src/api/http'
 
-const HeartButton = () => {
+const HeartButton = ({ aptCode }) => {
   const [filled, setFilled] = useState(false)
+
+  const onClickHandler = async () => {
+    setFilled(!filled)
+    if (!filled) {
+      await http
+        .post('/members/favorites', {
+          aptCode: aptCode,
+        })
+        .then((data) => {
+          console.log(data)
+        })
+        .catch((err) => {
+          console.log(`err occured!`)
+          console.log(err)
+        })
+    } else {
+      await http
+        .delete('/members/favorites', {
+          aptCode: aptCode,
+        })
+        .then((data) => {
+          console.log(data)
+        })
+        .catch((err) => {
+          console.log(`err occured!`)
+          console.log(err)
+        })
+    }
+    alert(`관심 아파트로 ${!filled ? '등록' : '삭제'} 완료!`)
+  }
   return (
     <StyledWrapper>
-      <button id="star-wrapper" onClick={() => setFilled(!filled)}>
+      <button id="star-wrapper" onClick={onClickHandler}>
         {!filled ? (
           <HeartTwoTone
             twoToneColor={'#eb2f96'}
