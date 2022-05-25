@@ -34,7 +34,7 @@ const LeftSide = () => {
   }, [searchResult])
 
   return (
-    <LeftSideWrapper>
+    <LeftSideWrapper isWholeRendered={!!data}>
       <SearchGroup />
       {data ? <LeftSideContent data={data} /> : <RankSwiper />}
     </LeftSideWrapper>
@@ -47,10 +47,12 @@ const LeftSideWrapper = styled.div`
   position: absolute;
   background-color: white;
   z-index: 1;
-  top: 1em;
-  left: 1em;
+  top: ${(props) => (props.isWholeRendered ? '0px' : '1em')};
+  left: ${(props) => (props.isWholeRendered ? '0px' : '1em')};
+
   display: flex;
   flex-direction: column;
-  max-height: 90vh;
-  overflow: scroll;
+  ${(props) => (props.isWholeRendered ? 'height: 0px;' : '')};
+  max-heihgt: 100%;
+  overflow: auto;
 `
