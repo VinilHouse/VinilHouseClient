@@ -15,20 +15,17 @@ const modalRegistVisibleState = atom({
   default: false,
 })
 
-const userLat = atom({
-  key: 'userLat',
-  default: 0,
-})
-
-const userLng = atom({
-  key: 'userLng',
-  default: 0,
+const userLocation = atom({
+  key: 'userLocation',
+  default: {
+    lat: 0,
+    lng: 0,
+  },
 })
 
 export {
   aptCodeState,
   modalLoginVisibleState as modalLoginVisibleState,
   modalRegistVisibleState as modalRegistVisibleState,
-  userLat,
-  userLng,
+  userLocation,
 }

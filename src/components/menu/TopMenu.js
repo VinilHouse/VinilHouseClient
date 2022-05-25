@@ -1,13 +1,12 @@
 import styled from '@emotion/styled'
 import { Button, Avatar } from 'antd'
 import { useRecoilState } from 'recoil'
-import { modalLoginVisibleState, userLat, userLng } from 'src/store/states'
+import { modalLoginVisibleState, userLocation } from 'src/store/states'
 import { AimOutlined, UserOutlined, ControlOutlined } from '@ant-design/icons'
 
 const TopMenu = () => {
-  const [t1, setIsModalLoginVisible] = useRecoilState(modalLoginVisibleState)
-  const [t2, setUserLat] = useRecoilState(userLat)
-  const [t3, setUserLng] = useRecoilState(userLng)
+  const [_, setIsModalLoginVisible] = useRecoilState(modalLoginVisibleState)
+  const [__, setUserLocation] = useRecoilState(userLocation)
 
   const onUserClick = () => {
     setIsModalLoginVisible((prevState) => {
@@ -30,8 +29,10 @@ const TopMenu = () => {
       console.log(`Latitude : ${crd.latitude}`)
       console.log(`Longitude: ${crd.longitude}`)
       console.log(`More or less ${crd.accuracy} meters.`)
-      setUserLat(crd.latitude)
-      setUserLng(crd.longitude)
+      setUserLocation({
+        lat: crd.latitude,
+        lng: crd.longitude,
+      })
     }
 
     function error(err) {
@@ -45,12 +46,15 @@ const TopMenu = () => {
     <StyledWrapper>
       <div className="menu-div">
         <UserOutlined onClick={onUserClick} />
+        <h5>LOGIN</h5>
       </div>
       <div className="menu-div">
         <AimOutlined onClick={onUserAimClick} />
+        <h5>MYLOC</h5>
       </div>
       <div className="menu-div">
         <ControlOutlined />
+        <h5>FILTER</h5>
       </div>
     </StyledWrapper>
   )
@@ -70,6 +74,7 @@ const StyledWrapper = styled.div`
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
     border-radius: 5px;
     padding: 3px;
+    text-align: center;
     .anticon {
       font-size: 40px;
       color: '#999999';

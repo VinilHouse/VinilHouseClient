@@ -3,8 +3,8 @@ import { useEffect, useState, useRef } from 'react'
 import { MULTICAMPUS_COORD, MAP_LEVEL_THRESHOLD } from 'src/constants/map'
 import { levelRange, priceToString, downLevel } from 'src/utils'
 import mapSmt from 'src/utils/mapSmt'
-import { useRecoilState } from 'recoil'
-import { aptCodeState } from 'src/store/states'
+import { useRecoilState, useRecoilValue } from 'recoil'
+import { aptCodeState, userLocation } from 'src/store/states'
 import http from 'src/api/http'
 
 const KakaoMap = () => {
@@ -14,6 +14,15 @@ const KakaoMap = () => {
   const [markerPositions, setMarkerPositions] = useState([])
   const container = useRef(null)
   const [_, setAptCodeState] = useRecoilState(aptCodeState)
+  const userLoc = useRecoilValue(userLocation)
+
+  useEffect(() => {
+    if (!kakaoMap) return
+    console.log(userLoc.lat + ' ' + userLoc.lng)
+    let newUserCenter = new kakao.maps.LatLng(userLoc.lat, userLoc.lng)
+    kakaoMap.setCenter(newUserCenter)
+    // let newLevel = downLevel(level)
+  }, [userLoc])
 
   useEffect(() => {
     const script = document.createElement('script')
