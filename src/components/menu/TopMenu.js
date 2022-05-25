@@ -1,12 +1,17 @@
 import styled from '@emotion/styled'
 import { Button, Avatar } from 'antd'
 import { useRecoilState } from 'recoil'
-import { modalLoginVisibleState, userLocation } from 'src/store/states'
+import {
+  modalLoginVisibleState,
+  userLocation,
+  modalSlideVisibleState,
+} from 'src/store/states'
 import { AimOutlined, UserOutlined, ControlOutlined } from '@ant-design/icons'
 
 const TopMenu = () => {
   const [_, setIsModalLoginVisible] = useRecoilState(modalLoginVisibleState)
   const [__, setUserLocation] = useRecoilState(userLocation)
+  const [___, setIsModalSlideVisible] = useRecoilState(modalSlideVisibleState)
 
   const onUserClick = () => {
     setIsModalLoginVisible((prevState) => {
@@ -42,6 +47,14 @@ const TopMenu = () => {
     navigator.geolocation.getCurrentPosition(success, error, options)
   }
 
+  const onFilterClick = () => {
+    console.log('filter click')
+    setIsModalSlideVisible((prevState) => {
+      console.log(prevState)
+      return !prevState
+    })
+  }
+
   return (
     <StyledWrapper>
       <div className="menu-div">
@@ -53,7 +66,7 @@ const TopMenu = () => {
         <h5>MYLOC</h5>
       </div>
       <div className="menu-div">
-        <ControlOutlined />
+        <ControlOutlined onClick={onFilterClick} />
         <h5>FILTER</h5>
       </div>
     </StyledWrapper>

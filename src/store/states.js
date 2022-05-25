@@ -15,6 +15,11 @@ const modalRegistVisibleState = atom({
   default: false,
 })
 
+const modalSlideVisibleState = atom({
+  key: 'modalSlideVisibleState',
+  default: false,
+})
+
 const userLocation = atom({
   key: 'userLocation',
   default: {
@@ -28,4 +33,5 @@ export {
   modalLoginVisibleState as modalLoginVisibleState,
   modalRegistVisibleState as modalRegistVisibleState,
   userLocation,
+  modalSlideVisibleState,
 }
