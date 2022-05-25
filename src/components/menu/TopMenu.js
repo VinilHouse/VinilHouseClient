@@ -1,18 +1,15 @@
 import styled from '@emotion/styled'
 import { Button, Avatar } from 'antd'
 import { useRecoilState } from 'recoil'
-import {
-  modalLoginVisibleState,
-  userLocation,
-  modalSlideVisibleState,
-} from 'src/store/states'
+import { modalLoginVisibleState, userLocation } from 'src/store/states'
 import { AimOutlined, UserOutlined, ControlOutlined } from '@ant-design/icons'
+import FilterSlider from 'src/components/modal/FilterSlider'
+import { useState } from 'react'
 
 const TopMenu = () => {
   const [_, setIsModalLoginVisible] = useRecoilState(modalLoginVisibleState)
   const [__, setUserLocation] = useRecoilState(userLocation)
-  const [___, setIsModalSlideVisible] = useRecoilState(modalSlideVisibleState)
-
+  const [isVisible, setIsVisible] = useState(false)
   const onUserClick = () => {
     setIsModalLoginVisible((prevState) => {
       console.log(prevState)
@@ -29,11 +26,6 @@ const TopMenu = () => {
 
     function success(pos) {
       var crd = pos.coords
-
-      console.log('Your current position is:')
-      console.log(`Latitude : ${crd.latitude}`)
-      console.log(`Longitude: ${crd.longitude}`)
-      console.log(`More or less ${crd.accuracy} meters.`)
       setUserLocation({
         lat: crd.latitude,
         lng: crd.longitude,
@@ -48,11 +40,7 @@ const TopMenu = () => {
   }
 
   const onFilterClick = () => {
-    console.log('filter click')
-    setIsModalSlideVisible((prevState) => {
-      console.log(prevState)
-      return !prevState
-    })
+    setIsVisible(!isVisible)
   }
 
   return (
@@ -68,6 +56,7 @@ const TopMenu = () => {
       <div className="menu-div">
         <ControlOutlined onClick={onFilterClick} />
         <h5>FILTER</h5>
+        {isVisible && <FilterSlider />}
       </div>
     </StyledWrapper>
   )

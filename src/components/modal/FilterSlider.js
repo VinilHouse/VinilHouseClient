@@ -1,15 +1,8 @@
 import styled from '@emotion/styled'
-import React from 'react'
-import { useState } from 'react'
-import { Slider, InputNumber, Row, Col } from 'antd'
-import { SliderMarks } from 'antd/lib/slider'
-import { modalSlideVisibleState } from 'src/store/states'
-import { useRecoilState } from 'recoil'
+import { Col, InputNumber, Row, Slider } from 'antd'
+import React, { useState } from 'react'
 
 const FilterSlider = () => {
-  const [isModalSlideVisibleState, setIsModalSlideVisibleState] =
-    useRecoilState(modalSlideVisibleState)
-
   const [inputValue, setInputValue] = useState(1)
 
   const onChange = (newValue) => {
@@ -17,7 +10,7 @@ const FilterSlider = () => {
   }
 
   return (
-    <StyledWrapper filterOn={isModalSlideVisibleState}>
+    <StyledWrapper>
       <Row>
         <Col span={2}>
           <h5 className="slide-title">가격</h5>
@@ -72,7 +65,6 @@ const StyledWrapper = styled.div`
   position: absolute;
   top: 190px;
   right: 130px;
-  z-index: ${(props) => (props.filterOn ? 1 : -1)};
   .Col {
     color: black;
   }
