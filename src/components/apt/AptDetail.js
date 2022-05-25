@@ -1,13 +1,8 @@
-import {
-  ArrowLeftOutlined,
-  CloseOutlined,
-  CommentOutlined,
-} from '@ant-design/icons'
 import styled from '@emotion/styled'
 import 'antd/dist/antd.css'
 import AptChartTab from './AptChartTab'
-import AptDealList from './AptDealList'
 import AptImage from './AptImage'
+import HeartButton from './HeartButton'
 
 const AptDetail = ({ data }) => {
   console.log('aptDetail')
@@ -17,12 +12,11 @@ const AptDetail = ({ data }) => {
     <StyledWrapper>
       <AptImage src={data.houseInfoResponseDto?.img} />
       <StyledHeader imgRendered={data.houseInfoResponseDto?.img != 'NONE'}>
-        <div className="row">
-          <ArrowLeftOutlined style={{ fontSize: '15px', padding: '7px' }} />
-          <span className="title">{data.houseInfoResponseDto?.name}</span>
-          <CloseOutlined style={{ fontSize: '15px', padding: '7px' }} />
+        <div className="row first">
+          <div className="title">{data.houseInfoResponseDto?.name}</div>
+          {data.houseInfoResponseDto?.img == 'NONE' && <HeartButton />}
         </div>
-        <div className="text sub-title">
+        <div className="row text sub-title">
           <span>
             {data.houseInfoResponseDto?.dongName}{' '}
             {data.houseInfoResponseDto?.jibun}{' '}
@@ -40,6 +34,9 @@ const AptDetail = ({ data }) => {
 export default AptDetail
 
 const StyledWrapper = styled.div`
+  #svg-wrapper {
+    background-color: white;
+  }
   .row {
     display: flex;
     justify-content: space-between;
@@ -49,7 +46,6 @@ const StyledWrapper = styled.div`
   .title {
     font-size: 22px;
     font-weight: bold;
-    line-height: 0;
   }
 
   .sub-title {
@@ -60,7 +56,9 @@ const StyledWrapper = styled.div`
     text-align: center;
   }
 `
+
 const StyledHeader = styled.div`
+  padding-left: 10px;
   background-color: rgba(43, 192, 228, 0.8);
   position: ${(props) => (props.imgRendered ? 'relative' : 'static')};
   top: ${(props) => (props.imgRendered ? '-6px' : '0px')};
