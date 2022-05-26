@@ -1,6 +1,5 @@
 import { AimOutlined, KeyOutlined, UserOutlined } from '@ant-design/icons'
 import styled from '@emotion/styled'
-import { useState } from 'react'
 import { useRecoilState, useRecoilValue } from 'recoil'
 import {
   isLogInState,

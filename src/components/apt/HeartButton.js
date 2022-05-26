@@ -8,6 +8,7 @@ import { isLogInState, modalLoginVisibleState } from 'src/store/states'
 const HeartButton = ({ aptCode }) => {
   const [filled, setFilled] = useState(false)
   const isLogIn = useRecoilValue(isLogInState)
+  // eslint-disable-next-line no-unused-vars
   const [_, setIsModalLoginVisible] = useRecoilState(modalLoginVisibleState)
 
   const onClickHandler = async () => {
