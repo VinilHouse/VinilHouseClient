@@ -33,7 +33,9 @@ const LeftSide = () => {
   return (
     <LeftSideWrapper isWholeRendered={!!data}>
       <SearchGroup setData={setData} data={data} />
-      {data ? <LeftSideContent data={data} /> : <RankSwiper />}
+      <div id="overflow-div">
+        {data ? <LeftSideContent data={data} /> : <RankSwiper />}
+      </div>
     </LeftSideWrapper>
   )
 }
@@ -52,4 +54,8 @@ const LeftSideWrapper = styled.div`
   ${(props) => (props.isWholeRendered ? 'height: 100%;' : '')};
   max-height: 100%;
   max-width: 394px;
+
+  #overflow-div {
+    overflow: auto;
+  }
 `

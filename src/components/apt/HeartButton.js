@@ -59,7 +59,7 @@ const StyledWrapper = styled.div`
     background-color: transparent;
     border: none;
     top: 46px;
-    right: 0;
+    right: 10px;
     z-index: 3;
   }
 `
