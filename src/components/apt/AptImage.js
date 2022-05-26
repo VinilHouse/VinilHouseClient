@@ -6,7 +6,7 @@ const myLoader = ({ src, width, height, quality }) => {
   return `${src}?w=${width}&h=${height}&q=${quality || 70}`
 }
 
-const AptImage = ({ src }) => {
+const AptImage = ({ src, aptCode }) => {
   if (src === 'NONE' || !src) return <></>
 
   return (
@@ -18,7 +18,7 @@ const AptImage = ({ src }) => {
         width={394}
         height={230}
       />
-      <HeartButton />
+      <HeartButton aptCode={aptCode} />
     </StyledWrapper>
   )
 }

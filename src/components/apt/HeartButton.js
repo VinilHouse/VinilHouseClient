@@ -1,12 +1,21 @@
 import { HeartFilled, HeartTwoTone } from '@ant-design/icons'
 import styled from '@emotion/styled'
 import { useState } from 'react'
+import { useRecoilState, useRecoilValue } from 'recoil'
 import http from 'src/api/http'
+import { isLogInState, modalLoginVisibleState } from 'src/store/states'
 
 const HeartButton = ({ aptCode }) => {
   const [filled, setFilled] = useState(false)
+  const isLogIn = useRecoilValue(isLogInState)
+  const [_, setIsModalLoginVisible] = useRecoilState(modalLoginVisibleState)
 
   const onClickHandler = async () => {
+    if (!isLogIn) {
+      alert(`로그인이 필요합니다.`)
+      setIsModalLoginVisible(true)
+      return
+    }
     setFilled(!filled)
     if (!filled) {
       await http
@@ -17,19 +26,25 @@ const HeartButton = ({ aptCode }) => {
           alert(`관심 아파트로 등록 완료!`)
         })
         .catch((err) => {
-          alert(`로그인이 필요합니다.`)
+          if (err.response.status === 409) {
+            alert(`이미 등록된 아파트 입니다.`)
+          } else {
+            alert(`등록 실패 ..ㅠㅠ`)
+          }
           console.log(err)
         })
     } else {
       await http
         .delete('/members/favorites', {
-          aptCode: aptCode,
+          data: {
+            aptCode: aptCode,
+          },
         })
         .then((data) => {
           alert(`관심 아파트로 삭제 완료!`)
         })
         .catch((err) => {
-          alert(`로그인이 필요합니다.`)
+          alert(`삭제 실패 ..ㅠㅠ`)
           console.log(err)
         })
     }

@@ -23,7 +23,10 @@ const AptDetail = ({ data }) => {
 
   return (
     <StyledWrapper>
-      <AptImage src={data.houseInfoResponseDto?.img} />
+      <AptImage
+        src={data.houseInfoResponseDto?.img}
+        aptCode={data.houseInfoResponseDto.aptCode}
+      />
       <StyledHeader imgRendered={data.houseInfoResponseDto?.img !== 'NONE'}>
         <div className="row first">
           <div className="title">{data.houseInfoResponseDto?.name}</div>
