@@ -12,13 +12,14 @@ import HeartButton from './HeartButton'
 const AptDetail = ({ data }) => {
   const [distData, setDistData] = useState()
   const isLogIn = useRecoilValue(isLogInState)
+
   useEffect(() => {
     http
       .get(`/members/dist?aptCode=${data.houseInfoResponseDto.aptCode}`)
       .then(({ data }) => {
         setDistData(data.content.groups)
       })
-  }, [])
+  }, [data])
 
   return (
     <StyledWrapper>
