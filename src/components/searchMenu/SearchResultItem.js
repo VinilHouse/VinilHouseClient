@@ -7,7 +7,7 @@ const SearchResultItem = ({ aptData }) => {
   // eslint-disable-next-line no-unused-vars
   const [_, setLoc] = useRecoilState(userLocation)
   const onClickHandler = () => {
-    setLoc({ lat: aptData.lat, lng: aptData.lng })
+    setLoc({ lat: aptData.lat, lng: aptData.lng, level: 2 })
   }
   return (
     <List.Item onClick={onClickHandler}>

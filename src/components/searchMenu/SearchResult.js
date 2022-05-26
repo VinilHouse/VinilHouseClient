@@ -9,7 +9,6 @@ const SearchResult = ({ data }) => {
       <div className="row">
         <ArrowLeftOutlined style={{ fontSize: '15px', padding: '7px' }} />
         <span className="title">{data.query} 검색 결과</span>
-        <CloseOutlined style={{ fontSize: '15px', padding: '7px' }} />
       </div>
       <List
         header={<div>아파트 / 오피스텔</div>}
@@ -32,6 +31,7 @@ const StyledWrapper = styled.div`
 
   .title {
     font-size: 22px;
+    margin-right: 150px;
   }
 
   .text {

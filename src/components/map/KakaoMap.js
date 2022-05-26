@@ -18,8 +18,13 @@ const KakaoMap = () => {
   useEffect(() => {
     if (!kakaoMap) return
     let newUserCenter = new kakao.maps.LatLng(userLoc.lat, userLoc.lng)
-    kakaoMap.setCenter(newUserCenter)
-    // let newLevel = downLevel(level)
+    if (userLoc?.level) {
+      let bounds = new kakao.maps.LatLngBounds()
+      bounds.extend(newUserCenter)
+      kakaoMap.setBounds(bounds)
+    } else {
+      kakaoMap.setCenter(newUserCenter)
+    }
   }, [userLoc])
   const container = useRef(null)
   const [selectedAptCode, setSelectedAptCode] = useState()
@@ -284,6 +289,7 @@ const KakaoMap = () => {
     const result = content.map((e) => {
       return [e.lat, e.lng]
     })
+    console.log(content)
     setMarkerPositions(result)
   }, [content])
 
@@ -320,9 +326,14 @@ const KakaoMap = () => {
         let result = await mapSmt(kakaoMap)
         let newCenter = new kakao.maps.LatLng(e.lat, e.lng)
         let newLevel = downLevel(level)
-        newLevel && kakaoMap.setLevel(newLevel)
-        kakaoMap.setCenter(newCenter)
-
+        if (!newLevel) {
+          let bounds = new kakao.maps.LatLngBounds()
+          bounds.extend(newCenter)
+          kakaoMap.setBounds(bounds)
+        } else {
+          kakaoMap.setLevel(newLevel)
+          kakaoMap.setCenter(newCenter)
+        }
         setContent(result.data.content)
         if (level < MAP_LEVEL_THRESHOLD.DETAIL) {
           setSelectedAptCode(e.aptCode)
