@@ -1,5 +1,6 @@
 import styled from '@emotion/styled'
 import { Table } from 'antd'
+import { priceToString } from 'src/utils'
 
 const columns = [
   {
@@ -27,7 +28,7 @@ const AptDealList = ({ dealData }) => {
     return {
       key: `${idx}`,
       date: `${e.dealYear}.${e.dealMonth}.${e.dealDay}`,
-      dealAmount: e.dealAmount,
+      dealAmount: `${priceToString(e.dealAmount)}`,
       floor: e.floor,
     }
   })

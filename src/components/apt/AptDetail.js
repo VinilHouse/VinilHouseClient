@@ -14,6 +14,7 @@ const AptDetail = ({ data }) => {
   const isLogIn = useRecoilValue(isLogInState)
 
   useEffect(() => {
+    if (!isLogIn) return
     http
       .get(`/members/dist?aptCode=${data.houseInfoResponseDto.aptCode}`)
       .then(({ data }) => {
