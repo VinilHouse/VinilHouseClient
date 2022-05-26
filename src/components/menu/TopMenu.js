@@ -1,13 +1,7 @@
-import {
-  AimOutlined,
-  ControlOutlined,
-  KeyOutlined,
-  UserOutlined,
-} from '@ant-design/icons'
+import { AimOutlined, KeyOutlined, UserOutlined } from '@ant-design/icons'
 import styled from '@emotion/styled'
 import { useState } from 'react'
 import { useRecoilState, useRecoilValue } from 'recoil'
-import FilterSlider from 'src/components/modal/FilterSlider'
 import {
   isLogInState,
   modalLoginVisibleState,
@@ -20,7 +14,6 @@ const TopMenu = () => {
   // eslint-disable-next-line no-unused-vars
   const [__, setUserLocation] = useRecoilState(userLocation)
   const isLoggedIn = useRecoilValue(isLogInState)
-  const [isVisible, setIsVisible] = useState(false)
   const onUserClick = () => {
     setIsModalLoginVisible((prevState) => {
       return !prevState
@@ -49,10 +42,6 @@ const TopMenu = () => {
     navigator.geolocation.getCurrentPosition(success, error, options)
   }
 
-  const onFilterClick = () => {
-    setIsVisible(!isVisible)
-  }
-
   return (
     <StyledWrapper>
       <div className="menu-div">
@@ -72,11 +61,6 @@ const TopMenu = () => {
         <AimOutlined onClick={onUserAimClick} />
         <h5>MYLOC</h5>
       </div>
-      <div className="menu-div">
-        <ControlOutlined onClick={onFilterClick} />
-        <h5>FILTER</h5>
-        {isVisible && <FilterSlider />}
-      </div>
     </StyledWrapper>
   )
 }
@@ -95,6 +79,7 @@ const StyledWrapper = styled.div`
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
     border-radius: 5px;
     padding: 3px;
+    width: 66px;
     text-align: center;
     .anticon {
       font-size: 40px;

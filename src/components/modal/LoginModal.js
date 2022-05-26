@@ -27,6 +27,7 @@ const LoginModal = () => {
         if (res.status === 200) {
           alert(`${userData.id}님 로그인 되었습니다!`)
           setIsLoggedIn(true)
+          localStorage.setItem('isLoggedIn', 'true')
           setIsModalLoginVisible(false)
         } else {
           alert('로그인에 실패했습니다.')
@@ -44,7 +45,8 @@ const LoginModal = () => {
       .post('/members/logout')
       .then((res) => {
         if (res.status === 200) {
-          alert(`${userData.id}님 로그아웃 되셨습니다`)
+          alert(`로그아웃 되셨습니다`)
+          localStorage.removeItem('isLoggedIn')
         } else {
           alert('로그아웃에 실패했습니다.')
         }
