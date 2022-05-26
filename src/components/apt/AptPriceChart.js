@@ -26,6 +26,11 @@ const options = {
       offset: true,
     },
   },
+  plugins: {
+    legend: {
+      display: false,
+    },
+  },
 }
 
 const AptPriceChart = ({ monthData }) => {
@@ -53,7 +58,6 @@ const AptPriceChart = ({ monthData }) => {
     labels,
     datasets: [
       {
-        label: 'Dataset 1',
         data: amount,
         borderColor: 'rgb(255, 99, 132)',
         backgroundColor: 'rgba(255, 99, 132, 0.5)',

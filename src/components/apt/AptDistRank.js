@@ -57,8 +57,10 @@ const StyledWrapper = styled.div`
     text-align: center;
   }
   #title {
+    background-color: rgb(255, 99, 132);
     padding: 10px;
-    font-size: 15px;
-    font-weight: 500;
+    font-size: 18px;
+    font-weight: 800;
+    text-align: center;
   }
 `

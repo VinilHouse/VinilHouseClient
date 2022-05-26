@@ -6,6 +6,7 @@ import {
   modalLoginVisibleState,
   modalRegistVisibleState,
 } from 'src/store/states'
+import styled from '@emotion/styled'
 
 const SignIn = ({ setUserData }) => {
   // eslint-disable-next-line no-unused-vars
@@ -58,12 +59,14 @@ const SignIn = ({ setUserData }) => {
           },
         ]}
       >
-        <Input
-          prefix={<LockOutlined className="site-form-item-icon" />}
-          type="password"
-          placeholder="비밀번호"
-          onChange={(e) => setPw(e.target.value)}
-        />
+        <StyledWrapper>
+          <Input
+            prefix={<LockOutlined className="site-form-item-icon" />}
+            type="password"
+            placeholder="비밀번호"
+            onChange={(e) => setPw(e.target.value)}
+          />
+        </StyledWrapper>
       </Form.Item>
       <Form.Item>
         <Form.Item name="remember" valuePropName="checked" noStyle>
@@ -84,3 +87,9 @@ const SignIn = ({ setUserData }) => {
 }
 
 export default SignIn
+
+const StyledWrapper = styled.div`
+  * {
+    font-family: 'Spoqa han Sans Neo', sans-serif !important;
+  }
+`

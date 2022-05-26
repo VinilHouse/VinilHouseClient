@@ -14,8 +14,9 @@
   font-weight: 500;
 } */
 
-/* body {
+body {
   font-family: 나눔스퀘어, 'NanumSquare', sans-serif;
+  height: 100vh;
 }
 .normal {
   font-weight: 400;
@@ -28,8 +29,7 @@
 }
 .light {
   font-weight: 300;
-} */
-
-body {
-  height: 100vh;
 }
+
+/* body {
+} */
