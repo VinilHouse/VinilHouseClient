@@ -19,5 +19,5 @@ const SearchGroupWrapper = styled.div`
   display: flex;
   align-items: center;
   background-color: ${(props) =>
-    props.sideRenderd != false ? 'rgba(43, 192, 228, 0.8);' : 'white'};
+    props.sideRenderd !== false ? 'rgba(43, 192, 228, 0.8);' : 'white'};
 `
