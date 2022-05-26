@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useRecoilState } from 'recoil'
 import { Modal } from 'antd'
 import { isLogInState, modalLoginVisibleState } from 'src/store/states'
@@ -24,7 +24,7 @@ const LoginModal = () => {
         password: userData.pw,
       })
       .then((res) => {
-        if (res.status == 200) {
+        if (res.status === 200) {
           alert(`${userData.id}님 로그인 되었습니다!`)
           setIsLoggedIn(true)
           setIsModalLoginVisible(false)
@@ -43,7 +43,7 @@ const LoginModal = () => {
     http
       .post('/members/logout')
       .then((res) => {
-        if (res.status == 200) {
+        if (res.status === 200) {
           alert(`${userData.id}님 로그아웃 되셨습니다`)
         } else {
           alert('로그아웃에 실패했습니다.')

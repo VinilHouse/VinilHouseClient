@@ -1,6 +1,6 @@
 import { HeartFilled, HeartTwoTone } from '@ant-design/icons'
 import styled from '@emotion/styled'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import http from 'src/api/http'
 
 const HeartButton = ({ aptCode }) => {

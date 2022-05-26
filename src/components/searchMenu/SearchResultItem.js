@@ -4,6 +4,7 @@ import { useRecoilState } from 'recoil'
 import { userLocation } from 'src/store/states'
 
 const SearchResultItem = ({ aptData }) => {
+  // eslint-disable-next-line no-unused-vars
   const [_, setLoc] = useRecoilState(userLocation)
   const onClickHandler = () => {
     setLoc({ lat: aptData.lat, lng: aptData.lng })

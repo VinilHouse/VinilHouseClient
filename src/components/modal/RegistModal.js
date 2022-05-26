@@ -1,9 +1,11 @@
-import { Button, Checkbox, Form, Input, Modal } from 'antd'
-import { modalLoginVisibleState } from 'src/store/states'
-import { modalRegistVisibleState } from 'src/store/states'
-import { useRecoilState } from 'recoil'
+import { Form, Input, Modal } from 'antd'
 import { useState } from 'react'
+import { useRecoilState } from 'recoil'
 import http from 'src/api/http.js'
+import {
+  modalLoginVisibleState,
+  modalRegistVisibleState,
+} from 'src/store/states'
 
 const formItemLayout = {
   labelCol: {
@@ -37,6 +39,7 @@ const tailFormItemLayout = {
 }
 
 const RegistModal = () => {
+  // eslint-disable-next-line no-unused-vars
   const [isModalLoginVisible, setIsModalLoginVisible] = useRecoilState(
     modalLoginVisibleState,
   )
@@ -59,7 +62,7 @@ const RegistModal = () => {
 
   const handleOk = () => {
     console.log('ok')
-    if (pw != pwcf) {
+    if (pw !== pwcf) {
       alert('비밀번호를 확인하세요.')
       return
     }

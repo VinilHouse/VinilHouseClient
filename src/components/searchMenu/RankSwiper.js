@@ -1,16 +1,13 @@
-import { Swiper, SwiperSlide } from 'swiper/react'
-import SwiperCore, { Pagination, Autoplay } from 'swiper'
 import styled from '@emotion/styled'
-import SVGArrowIcon from './svg/down-arrow.svg'
-
-import 'swiper/css/bundle'
-import 'swiper/css'
-import 'swiper/css/pagination'
-// Import Swiper styles
-import 'swiper/css'
 import { useEffect, useState } from 'react'
-import RankToolTip from './RankToolTip'
 import http from 'src/api/http'
+import { Autoplay, Pagination } from 'swiper'
+import 'swiper/css'
+import 'swiper/css/bundle'
+import 'swiper/css/pagination'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import RankToolTip from './RankToolTip'
+import SVGArrowIcon from './svg/down-arrow.svg'
 
 // SwiperCore.use([Pagination, Autoplay])
 
@@ -36,7 +33,7 @@ const RankSwiper = () => {
       })
   }, [])
 
-  if (!data || data.length == 0) return
+  if (!data || data.length === 0) return
 
   return (
     <StyledLayout>

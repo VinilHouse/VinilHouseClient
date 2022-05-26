@@ -62,7 +62,7 @@ const MyLocation = () => {
           )}
         </div>
         {adding && <MyLocationForm setAddInput={setAddInput} />}
-        {data && data.length != 0 ? (
+        {data && data.length !== 0 ? (
           <MyLocationItem data={data} />
         ) : (
           <div id="text">자주가는 곳을 추가해주세요!</div>

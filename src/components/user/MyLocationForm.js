@@ -9,6 +9,7 @@ const MyLocationForm = ({ setAddInput }) => {
   const [alias, setAlias] = useState()
 
   const onSearch = () => {
+    // eslint-disable-next-line no-undef
     new daum.Postcode({
       oncomplete: function (data) {
         setData(data.address)

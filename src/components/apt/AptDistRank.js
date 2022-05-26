@@ -23,6 +23,7 @@ const columns = [
 ]
 
 const AptDistRank = ({ distData }) => {
+  console.log('distRank!')
   console.log(distData)
 
   const data = distData?.map((e, idx) => {

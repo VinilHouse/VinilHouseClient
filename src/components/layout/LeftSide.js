@@ -1,6 +1,6 @@
 import styled from '@emotion/styled'
 import { useEffect, useState } from 'react'
-import { useRecoilState, useRecoilValue } from 'recoil'
+import { useRecoilValue } from 'recoil'
 import http from 'src/api/http'
 import { aptCodeState, searchResultState } from 'src/store/states'
 import RankSwiper from '../searchMenu/RankSwiper'

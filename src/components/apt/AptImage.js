@@ -7,7 +7,7 @@ const myLoader = ({ src, width, height, quality }) => {
 }
 
 const AptImage = ({ src }) => {
-  if (src == 'NONE' || !src) return <></>
+  if (src === 'NONE' || !src) return <></>
 
   return (
     <StyledWrapper>

@@ -4,7 +4,7 @@ import SearchResult from '../searchMenu/SearchResult'
 const LeftSideContent = ({ data }) => {
   return (
     <div>
-      {data.mode == 'aptDetail' ? (
+      {data.mode === 'aptDetail' ? (
         <AptDetail data={data.data} />
       ) : (
         <SearchResult data={data.data} />

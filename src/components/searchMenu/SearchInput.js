@@ -1,14 +1,15 @@
-import { useState } from 'react'
 import styled from '@emotion/styled'
-import Image from 'next/image'
 import { Input } from 'antd'
+import Image from 'next/image'
 import { logo } from 'public/assets/img'
-import http from 'src/api/http'
+import { useState } from 'react'
 import { useRecoilState } from 'recoil'
+import http from 'src/api/http'
 import { searchResultState } from 'src/store/states'
 
 const SearchInput = () => {
   const [input, setInput] = useState('')
+  // eslint-disable-next-line no-unused-vars
   const [_, setSearchResultState] = useRecoilState(searchResultState)
 
   const onSubmitHandler = async () => {
@@ -42,11 +43,4 @@ const SearchInputWrapper = styled.div`
   align-items: center;
   flex-direction: row;
   margin: 7px 7px 0px 7px;
-`
-
-const ImageWrapper = styled.div`
-  width: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 `

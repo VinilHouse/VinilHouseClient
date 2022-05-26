@@ -1,9 +1,7 @@
-import React from 'react'
-import { Tabs } from 'antd'
-import AptPriceChart from './AptPriceChart'
-import areaToString from 'src/utils/areaToString'
 import styled from '@emotion/styled'
+import { Tabs } from 'antd'
 import AptDealList from './AptDealList'
+import AptPriceChart from './AptPriceChart'
 
 const { TabPane } = Tabs
 

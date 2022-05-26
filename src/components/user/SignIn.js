@@ -8,10 +8,12 @@ import {
 } from 'src/store/states'
 
 const SignIn = ({ setUserData }) => {
+  // eslint-disable-next-line no-unused-vars
   const [isModalRegistVisible, setIsModalRegistVisible] = useRecoilState(
     modalRegistVisibleState,
   )
 
+  // eslint-disable-next-line no-unused-vars
   const [_, setIsModalLoginVisible] = useRecoilState(modalLoginVisibleState)
 
   const onRegister = () => {

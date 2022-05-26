@@ -2,6 +2,7 @@ import styled from '@emotion/styled'
 import { useState } from 'react'
 import RankSwiper from './RankSwiper'
 import RankToolTip from './RankToolTip'
+import SVGArrowIcon from './svg/down-arrow.svg'
 
 const RankContainer = () => {
   const [showSwiper, setShowSwiper] = useState(true)

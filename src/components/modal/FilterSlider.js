@@ -1,6 +1,6 @@
 import styled from '@emotion/styled'
 import { Col, InputNumber, Row, Slider } from 'antd'
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 const FilterSlider = () => {
   const [inputValue, setInputValue] = useState(1)

@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import { Divider, List, Table } from 'antd'
+import { Table } from 'antd'
 import { useEffect, useState } from 'react'
 import http from 'src/api/http'
 import { priceToString } from 'src/utils'

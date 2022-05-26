@@ -1,22 +1,23 @@
+import {
+  AimOutlined,
+  ControlOutlined,
+  KeyOutlined,
+  UserOutlined,
+} from '@ant-design/icons'
 import styled from '@emotion/styled'
-import { Button, Avatar } from 'antd'
+import { useState } from 'react'
 import { useRecoilState, useRecoilValue } from 'recoil'
+import FilterSlider from 'src/components/modal/FilterSlider'
 import {
   isLogInState,
   modalLoginVisibleState,
   userLocation,
 } from 'src/store/states'
-import {
-  AimOutlined,
-  UserOutlined,
-  ControlOutlined,
-  KeyOutlined,
-} from '@ant-design/icons'
-import FilterSlider from 'src/components/modal/FilterSlider'
-import { useState } from 'react'
 
 const TopMenu = () => {
+  // eslint-disable-next-line no-unused-vars
   const [_, setIsModalLoginVisible] = useRecoilState(modalLoginVisibleState)
+  // eslint-disable-next-line no-unused-vars
   const [__, setUserLocation] = useRecoilState(userLocation)
   const isLoggedIn = useRecoilValue(isLogInState)
   const [isVisible, setIsVisible] = useState(false)
