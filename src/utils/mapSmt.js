@@ -6,7 +6,6 @@ export default function (map) {
   let bounds = map.getBounds()
 
   let level = map.getLevel()
-  // console.log(level)
   // 영역정보의 남서쪽 정보를 얻어옵니다
   let swLatlng = bounds.getSouthWest()
 

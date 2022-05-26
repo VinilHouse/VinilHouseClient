@@ -11,7 +11,6 @@ const RankContainer = () => {
     setShowSwiper(!showSwiper)
   }
 
-  console.log(showSwiper)
   return (
     <StyledWrapper>
       {showSwiper ? <RankSwiper /> : <RankToolTip />}

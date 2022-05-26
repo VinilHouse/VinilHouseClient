@@ -45,7 +45,6 @@ const KakaoMap = () => {
           let bounds = map.getBounds()
 
           let level = map.getLevel()
-          // console.log(level)
           // 영역정보의 남서쪽 정보를 얻어옵니다
           let swLatlng = bounds.getSouthWest()
 
@@ -61,8 +60,6 @@ const KakaoMap = () => {
 
           const result = await http.get(`${url}`)
 
-          console.log('idle called')
-          console.log(result)
           setContent(result.data.content)
         })
 
@@ -236,14 +233,10 @@ const KakaoMap = () => {
 
         // 각 카테고리에 클릭 이벤트를 등록합니다
         function addCategoryClickEvent() {
-          console.log('addCategoryClickEvent')
           let category = document.querySelector('#category')
-          // console.log(categoryHTML)
-          // container.current.appendChild(category)
 
           let children = category.children
 
-          console.log('children : ' + children)
           for (let i = 0; i < children.length; i++) {
             children[i].onclick = onClickCategory
           }
@@ -363,7 +356,6 @@ const KakaoMap = () => {
       markers.forEach((marker) => marker.setMap(null))
 
       return markerInforms.map((e) => {
-        // console.log(e)
         let a = new kakao.maps.CustomOverlay({
           map: kakaoMap,
           position: e.position,

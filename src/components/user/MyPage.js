@@ -33,7 +33,6 @@ const MyPage = () => {
     http
       .get('/houses/favorites')
       .then(({ data }) => {
-        console.log(data)
         setFavorites(data.content)
       })
       .catch((err) => console.log(err))

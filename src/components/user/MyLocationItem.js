@@ -2,8 +2,6 @@ import styled from '@emotion/styled'
 import { Descriptions } from 'antd'
 
 const MyLocationItem = ({ data }) => {
-  console.log(data)
-
   return (
     <StyledWrapper>
       {data.map((e) => {

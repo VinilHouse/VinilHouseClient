@@ -1,7 +1,6 @@
 import styled from '@emotion/styled'
 
 const RankToolTip = ({ ranks }) => {
-  console.log(ranks)
   return (
     <StyledWrapper>
       <div>

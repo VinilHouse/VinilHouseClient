@@ -19,13 +19,11 @@ const RankSwiper = () => {
     setShowSwiper(!showSwiper)
   }
 
-  console.log(showSwiper)
   useEffect(() => {
     const result = http.get(`/houses/rank`)
 
     result
       .then((data) => {
-        console.log(data)
         setData(data.data.content)
       })
       .catch((e) => {
@@ -33,7 +31,7 @@ const RankSwiper = () => {
       })
   }, [])
 
-  if (!data || data.length === 0) return
+  if (!data || data.length === 0) return <></>
 
   return (
     <StyledLayout>

@@ -11,8 +11,6 @@ const LeftSide = () => {
   const aptCode = useRecoilValue(aptCodeState)
   const searchResult = useRecoilValue(searchResultState)
   const [data, setData] = useState(false)
-  console.log('LeftSide!')
-  console.log(data)
   useEffect(() => {
     if (!aptCode) return
     async function fetchData() {
@@ -23,7 +21,6 @@ const LeftSide = () => {
         setData({ mode: 'aptDetail', data: data.content })
       })
       .catch((err) => {
-        console.log(`err occured!`)
         console.log(err)
       })
   }, [aptCode])
@@ -35,7 +32,7 @@ const LeftSide = () => {
 
   return (
     <LeftSideWrapper isWholeRendered={!!data}>
-      <SearchGroup />
+      <SearchGroup setData={setData} data={data} />
       {data ? <LeftSideContent data={data} /> : <RankSwiper />}
     </LeftSideWrapper>
   )

@@ -4,8 +4,6 @@ import { List } from 'antd'
 import SearchResultItem from './SearchResultItem'
 
 const SearchResult = ({ data }) => {
-  console.log('searchResult!!')
-  console.log(data)
   return (
     <StyledWrapper>
       <div className="row">

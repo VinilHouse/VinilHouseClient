@@ -12,9 +12,7 @@ import HeartButton from './HeartButton'
 const AptDetail = ({ data }) => {
   const [distData, setDistData] = useState()
   const isLogIn = useRecoilValue(isLogInState)
-  console.log('aptDetail')
   useEffect(() => {
-    console.log('get dist!!')
     http
       .get(`/members/dist?aptCode=${data.houseInfoResponseDto.aptCode}`)
       .then(({ data }) => {
@@ -79,5 +77,5 @@ const StyledHeader = styled.div`
   padding-left: 10px;
   background-color: rgba(43, 192, 228, 0.8);
   position: ${(props) => (props.imgRendered ? 'relative' : 'static')};
-  top: ${(props) => (props.imgRendered ? '-6px' : '0px')};
+  top: ${(props) => (props.imgRendered ? '-7px' : '0px')};
 `

@@ -34,26 +34,12 @@ const options = {
 }
 
 const AptPriceChart = ({ monthData }) => {
-  console.log('aptpriceChart')
-  console.log(monthData)
-  // const labels = [
-  //   'January',
-  //   'February',
-  //   'March',
-  //   'April',
-  //   'May',
-  //   'June',
-  //   'July',
-  // ]
-
   const labels = monthData.map((e) => {
     return `${e.dealYear}-${e.dealMonth}-${e.dealDay}`
   })
 
-  console.log(labels)
   const amount = monthData.map((e) => e.dealAmount)
 
-  console.log(amount)
   const data = {
     labels,
     datasets: [

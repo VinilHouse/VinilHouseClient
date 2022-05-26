@@ -14,10 +14,10 @@ const HeartButton = ({ aptCode }) => {
           aptCode: aptCode,
         })
         .then((data) => {
-          console.log(data)
+          alert(`관심 아파트로 등록 완료!`)
         })
         .catch((err) => {
-          console.log(`err occured!`)
+          alert(`로그인이 필요합니다.`)
           console.log(err)
         })
     } else {
@@ -26,14 +26,13 @@ const HeartButton = ({ aptCode }) => {
           aptCode: aptCode,
         })
         .then((data) => {
-          console.log(data)
+          alert(`관심 아파트로 삭제 완료!`)
         })
         .catch((err) => {
-          console.log(`err occured!`)
+          alert(`로그인이 필요합니다.`)
           console.log(err)
         })
     }
-    alert(`관심 아파트로 ${!filled ? '등록' : '삭제'} 완료!`)
   }
   return (
     <StyledWrapper>

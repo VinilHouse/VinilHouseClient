@@ -51,17 +51,12 @@ const RegistModal = () => {
   const [pw, setPw] = useState(0)
   const [pwcf, setPwcf] = useState(0)
 
-  const onFinish = (values) => {
-    console.log('Received values of form: ', values)
-  }
-
   const onLogin = () => {
     setIsModalRegistVisible(false)
     setIsModalLoginVisible(true)
   }
 
   const handleOk = () => {
-    console.log('ok')
     if (pw !== pwcf) {
       alert('비밀번호를 확인하세요.')
       return
@@ -75,7 +70,6 @@ const RegistModal = () => {
       })
       .then((res) => {
         alert('회원가입에 성공했습니다.')
-        console.log(res)
         setIsModalRegistVisible(false)
         setIsModalLoginVisible(true)
       })
@@ -87,7 +81,6 @@ const RegistModal = () => {
 
   const handleCancel = () => {
     setIsModalRegistVisible(false)
-    console.log('cancel')
   }
 
   return (
@@ -102,7 +95,6 @@ const RegistModal = () => {
       <Form
         {...formItemLayout}
         name="register"
-        onFinish={onFinish}
         initialValues={{
           residence: ['zhejiang', 'hangzhou', 'xihu'],
           prefix: '86',
