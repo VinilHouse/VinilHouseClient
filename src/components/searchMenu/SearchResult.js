@@ -1,4 +1,4 @@
-import { ArrowLeftOutlined, CloseOutlined } from '@ant-design/icons'
+import { ArrowLeftOutlined } from '@ant-design/icons'
 import styled from '@emotion/styled'
 import { List } from 'antd'
 import SearchResultItem from './SearchResultItem'
