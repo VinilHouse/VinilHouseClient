@@ -1,3 +1,4 @@
+import styled from '@emotion/styled'
 import { Form, Input, Modal } from 'antd'
 import { useState } from 'react'
 import { useRecoilState } from 'recoil'
@@ -133,47 +134,47 @@ const RegistModal = () => {
         >
           <Input onChange={(e) => setEmail(e.target.value)} />
         </Form.Item>
-
-        <Form.Item
-          name="password"
-          label="비밀번호"
-          rules={[
-            {
-              required: true,
-              message: '비밀번호를 입력해주세요',
-            },
-          ]}
-          hasFeedback
-        >
-          <Input.Password onChange={(e) => setPw(e.target.value)} />
-        </Form.Item>
-
-        <Form.Item
-          name="confirm"
-          label="비밀번호 확인"
-          dependencies={['password']}
-          hasFeedback
-          rules={[
-            {
-              required: true,
-              message: '비밀번호와 일치 하지 않습니다.',
-            },
-            ({ getFieldValue }) => ({
-              validator(_, value) {
-                if (!value || getFieldValue('password') === value) {
-                  return Promise.resolve()
-                }
-
-                return Promise.reject(
-                  new Error('비밀번호와 일치 하지 않습니다.'),
-                )
+        <StyledWrapper>
+          <Form.Item
+            name="password"
+            label="비밀번호"
+            rules={[
+              {
+                required: true,
+                message: '비밀번호를 입력해주세요',
               },
-            }),
-          ]}
-        >
-          <Input.Password onChange={(e) => setPwcf(e.target.value)} />
-        </Form.Item>
+            ]}
+            hasFeedback
+          >
+            <Input.Password onChange={(e) => setPw(e.target.value)} />
+          </Form.Item>
 
+          <Form.Item
+            name="confirm"
+            label="비밀번호 확인"
+            dependencies={['password']}
+            hasFeedback
+            rules={[
+              {
+                required: true,
+                message: '비밀번호와 일치 하지 않습니다.',
+              },
+              ({ getFieldValue }) => ({
+                validator(_, value) {
+                  if (!value || getFieldValue('password') === value) {
+                    return Promise.resolve()
+                  }
+
+                  return Promise.reject(
+                    new Error('비밀번호와 일치 하지 않습니다.'),
+                  )
+                },
+              }),
+            ]}
+          >
+            <Input.Password onChange={(e) => setPwcf(e.target.value)} />
+          </Form.Item>
+        </StyledWrapper>
         <Form.Item {...tailFormItemLayout}>
           <a href="#" onClick={onLogin}>
             로그인하기
@@ -185,3 +186,8 @@ const RegistModal = () => {
 }
 
 export default RegistModal
+const StyledWrapper = styled.div`
+  * {
+    font-family: 'Spoqa han Sans Neo', sans-serif !important;
+  }
+`

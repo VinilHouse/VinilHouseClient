@@ -8,10 +8,7 @@ import {
 } from 'src/store/states'
 import SignIn from '../user/SignIn'
 import http from 'src/api/http'
-// import MyPage from '../user/MyPage'
-import dynamic from 'next/dynamic'
-
-const MyPage = dynamic(() => import('../user/MyPage'), { ssr: false })
+import MyPage from '../user/MyPage'
 
 const LoginModal = () => {
   const [isModalLoginVisible, setIsModalLoginVisible] = useRecoilState(
@@ -36,7 +33,7 @@ const LoginModal = () => {
         if (res.status === 200) {
           alert(`${userData.id}님 로그인 되었습니다!`)
           setIsLoggedIn(true)
-          // localStorage.setItem('isLoggedIn', 'true')
+          localStorage.setItem('isLoggedIn', 'true')
 
           http
             .get('/houses/favorites')
@@ -63,7 +60,7 @@ const LoginModal = () => {
       .then((res) => {
         if (res.status === 200) {
           alert(`로그아웃 되셨습니다`)
-          // localStorage.removeItem('isLoggedIn')
+          localStorage.removeItem('isLoggedIn')
         } else {
           alert('로그아웃에 실패했습니다.')
         }
