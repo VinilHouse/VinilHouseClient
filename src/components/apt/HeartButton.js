@@ -1,15 +1,38 @@
 import { HeartFilled, HeartTwoTone } from '@ant-design/icons'
 import styled from '@emotion/styled'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRecoilState, useRecoilValue } from 'recoil'
 import http from 'src/api/http'
-import { isLogInState, modalLoginVisibleState } from 'src/store/states'
+import {
+  favoritesState,
+  isLogInState,
+  modalLoginVisibleState,
+} from 'src/store/states'
 
 const HeartButton = ({ aptCode }) => {
   const [filled, setFilled] = useState(false)
   const isLogIn = useRecoilValue(isLogInState)
+  const [favoritesData, setFavoritesData] = useRecoilState(favoritesState)
   // eslint-disable-next-line no-unused-vars
   const [_, setIsModalLoginVisible] = useRecoilState(modalLoginVisibleState)
+
+  useEffect(() => {
+    if (!favoritesData) return
+    console.log('check aptCode')
+    console.log(aptCode)
+
+    let flag = false
+    favoritesData.forEach((e) => {
+      console.log(e)
+      if (aptCode === e.aptCode) {
+        flag = true
+        setFilled(true)
+      }
+    })
+    if (!flag) {
+      setFilled(false)
+    }
+  }, [aptCode])
 
   const onClickHandler = async () => {
     if (!isLogIn) {
@@ -24,6 +47,7 @@ const HeartButton = ({ aptCode }) => {
           aptCode: aptCode,
         })
         .then((data) => {
+          setFavoritesData('created')
           alert(`관심 아파트로 등록 완료!`)
         })
         .catch((err) => {
@@ -42,6 +66,7 @@ const HeartButton = ({ aptCode }) => {
           },
         })
         .then((data) => {
+          setFavoritesData('deleted')
           alert(`관심 아파트로 삭제 완료!`)
         })
         .catch((err) => {

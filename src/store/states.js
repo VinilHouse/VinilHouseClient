@@ -33,6 +33,11 @@ const isLogInState = atom({
   default: false,
 })
 
+const favoritesState = atom({
+  key: 'favoritesState',
+  default: false,
+})
+
 export {
   aptCodeState,
   modalLoginVisibleState as modalLoginVisibleState,
@@ -40,4 +45,5 @@ export {
   userLocation,
   searchResultState,
   isLogInState,
+  favoritesState,
 }

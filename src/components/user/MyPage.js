@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react'
 import http from 'src/api/http'
 import { priceToString } from 'src/utils'
 import MyLocation from './MyLocation'
+import { favoritesState } from 'src/store/states'
+import { useRecoilValue } from 'recoil'
 
 const columns = [
   {
@@ -29,6 +31,8 @@ const columns = [
 const MyPage = () => {
   const [favorites, setFavorites] = useState()
   const [data, setData] = useState()
+  const favoritesData = useRecoilValue(favoritesState)
+
   useEffect(() => {
     http
       .get('/houses/favorites')
@@ -41,6 +45,16 @@ const MyPage = () => {
     script.src = '//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js'
     document.head.appendChild(script)
   }, [])
+
+  useEffect(() => {
+    console.log('changed!!!!')
+    http
+      .get('/houses/favorites')
+      .then(({ data }) => {
+        setFavorites(data.content)
+      })
+      .catch((err) => console.log(err))
+  }, [favoritesData])
 
   useEffect(() => {
     if (!favorites) return

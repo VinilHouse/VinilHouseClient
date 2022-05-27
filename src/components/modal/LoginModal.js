@@ -1,10 +1,17 @@
 import { useState } from 'react'
 import { useRecoilState } from 'recoil'
 import { Modal } from 'antd'
-import { isLogInState, modalLoginVisibleState } from 'src/store/states'
+import {
+  favoritesState,
+  isLogInState,
+  modalLoginVisibleState,
+} from 'src/store/states'
 import SignIn from '../user/SignIn'
 import http from 'src/api/http'
-import MyPage from '../user/MyPage'
+// import MyPage from '../user/MyPage'
+import dynamic from 'next/dynamic'
+
+const MyPage = dynamic(() => import('../user/MyPage'), { ssr: false })
 
 const LoginModal = () => {
   const [isModalLoginVisible, setIsModalLoginVisible] = useRecoilState(
@@ -12,6 +19,8 @@ const LoginModal = () => {
   )
   const [userData, setUserData] = useState()
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLogInState)
+  // eslint-disable-next-line no-unused-vars
+  const [_, setFavorites] = useRecoilState(favoritesState)
 
   const handleCancel = () => {
     setIsModalLoginVisible(false)
@@ -27,7 +36,15 @@ const LoginModal = () => {
         if (res.status === 200) {
           alert(`${userData.id}님 로그인 되었습니다!`)
           setIsLoggedIn(true)
-          localStorage.setItem('isLoggedIn', 'true')
+          // localStorage.setItem('isLoggedIn', 'true')
+
+          http
+            .get('/houses/favorites')
+            .then(({ data }) => {
+              setFavorites(data.content)
+            })
+            .catch((err) => console.log(err))
+
           setIsModalLoginVisible(false)
         } else {
           alert('로그인에 실패했습니다.')
@@ -46,7 +63,7 @@ const LoginModal = () => {
       .then((res) => {
         if (res.status === 200) {
           alert(`로그아웃 되셨습니다`)
-          localStorage.removeItem('isLoggedIn')
+          // localStorage.removeItem('isLoggedIn')
         } else {
           alert('로그아웃에 실패했습니다.')
         }
